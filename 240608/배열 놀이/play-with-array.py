@@ -8,6 +8,7 @@ for i in range(q):
     elif ar[0] == 2:
         if ar[1] in nn:
             print(nn.index(ar[1]) + 1)
+            break
         else:
             print(0)
     elif ar[0] == 3:

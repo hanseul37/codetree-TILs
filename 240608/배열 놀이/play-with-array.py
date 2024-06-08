@@ -11,5 +11,5 @@ for i in range(q):
         else:
             print(0)
     elif ar[0] == 3:
-        for i in range(ar[1]-1, ar[2]):
-            print(nn[i], end=" ")
+        for j in range(ar[1]-1, ar[2]):
+            print(nn[j], end=" ")

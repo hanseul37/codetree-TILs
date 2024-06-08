@@ -5,13 +5,14 @@ bb = list(map(int, input().split()))
 ins = 0
 for i in range(len(bb)):
     if bb[i] not in aa:
-        ins = 1
+        ins = 2
 
 gap = aa.index(bb[0])
 for i in range(1, len(bb)):
-    if gap != aa.index(bb[i]) - i + 1:
+    if gap != aa.index(bb[i]) - i:
         ins = 1
-if ins == 1:
+if ins != 0:
     print('No')
+    print(ins)
 else:
     print('Yes')

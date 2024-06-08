@@ -13,3 +13,4 @@ for i in range(q):
     elif ar[0] == 3:
         for j in range(ar[1]-1, ar[2]):
             print(nn[j], end=" ")
+        print()

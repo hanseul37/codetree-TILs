@@ -8,11 +8,12 @@ for i in range(len(bb)):
         ins = 2
 
 gap = aa.index(bb[0])
+print(gap)
 for i in range(1, len(bb)):
     if gap != aa.index(bb[i]) - i:
         ins = 1
+
 if ins != 0:
     print('No')
-    print(ins)
 else:
     print('Yes')

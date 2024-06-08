@@ -6,9 +6,10 @@ ins = 0
 for i in range(len(bb)):
     if bb[i] not in aa:
         ins = 1
+
+gap = aa.index(bb[0])
 for i in range(1, len(bb)):
-    gap = aa.index(bb[0])
-    if gap != aa.index(bb[i]) - i:
+    if gap != aa.index(bb[i]) - i + 1:
         ins = 1
 if ins == 1:
     print('No')

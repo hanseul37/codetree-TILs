@@ -13,7 +13,7 @@ for i in range(m - 1 + n):
     else:
         row = i - m + 1
         col = m - 1
-    while col > -1:
+    while col > -1 and row < n:
         cnt += 1
         ans[row][col] = cnt
         row += 1
@@ -23,5 +23,5 @@ for i in range(m - 1 + n):
 
 for i in range(n):
     for j in range(m):
-        print(ans[n][m], end=" ")
+        print(ans[i][j], end=" ")
     print()

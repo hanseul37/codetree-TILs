@@ -1,10 +1,8 @@
-def check(n:int):
-    return n == 3 or n == 6 or n == 9
+def check(n:str):
+    return '3' in n or '6' in n or '9' in n
 
 def three(n:int):
-    a = n // 10
-    b = n % 10
-    return check(a) or check(b)
+    return check(str(n))
 
 def game(a:int, b:int):
     cnt = 0

@@ -40,5 +40,7 @@ elif ans >= 6 and ans <= 8:
     print('Summer')
 elif ans >= 9 and ans <= 11:
     print('Fall')
-else:
+elif ans == 12 or ans == 1 or ans == 2:
     print('Winter')
+else:
+    print(-1)

@@ -9,7 +9,7 @@ def check(M:int, D:int):
             return True
         else:
             return False
-    elif M == 2 or M == 4 or M == 6 or M == 9 or M == 11:
+    elif M == 4 or M == 6 or M == 9 or M == 11:
         if D >= 1 and D <= 30:
             return True
         else:

@@ -1,6 +1,6 @@
 def location(arr1, arr2):
     index = -1
-    for i in range(len(arr1) - 1):
+    for i in range(len(arr1) - len(arr2) + 1):
         flag = 0
         if arr1[i] == arr2[0]:
             for j in range(1, len(arr2)):

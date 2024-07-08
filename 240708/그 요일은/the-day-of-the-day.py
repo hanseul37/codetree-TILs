@@ -8,6 +8,6 @@ for i in range(m1, m2):
 
 sum -= d1
 sum += d2
-
+sum += 1
 
 print(sum // 7 + 1)

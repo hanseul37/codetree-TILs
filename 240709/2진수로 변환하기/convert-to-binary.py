@@ -3,7 +3,7 @@ arr = []
 while n > 2:
     arr.append(n % 2)
     n //= 2
-arr.append(n)
+arr.append(n % 2)
 
 for num in arr[::-1]:
     print(num, end='')

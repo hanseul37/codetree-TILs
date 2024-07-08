@@ -5,8 +5,8 @@ sum = 0
 if m1 < m2 or (m1 == m2 and d1 < d2):
     for i in range(m1, m2):
         sum += m[i - 1]
-    sum -= d1
-    sum += d2
+    sum -= d2
+    sum += d1
 else:
     for i in range(m2, m1):
         sum += m[i - 1]

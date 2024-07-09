@@ -1,20 +1,33 @@
+OFFSET = 1000
+MAX_R = 2000
 n = int(input())
 point = 0
-arr = [0 for i in range(2000)]
-for _ in range(n):
-    x, dir = input().split()
-    if dir == 'L':
-        for i in range(point - 1, point - int(x) - 1, -1):
-            arr[i + 1000] += 1
-        point -= int(x)
-    else:
-        for i in range(point + 1, point + int(x) + 1, 1):
-            arr[i + 1000] += 1
-        point += int(x)
+segments = []
 
-cnt = 0
-flag = 0
-for i in range(2000):
-    if arr[i] >= 2:
-        cnt += 1
-print(cnt)
+for _ in range(n):
+    distance, direction = input().split()
+    distance = int(distance)
+
+    if direction == 'L':
+        left = point - distance
+        right = point
+        point = left
+    else:
+        left = point
+        right = point + distance
+        point = right
+
+    segments.append([left, right])
+
+coverage = [0] * (MAX_R + 1)
+
+for left, right in segments:
+    left += OFFSET
+    right += OFFSET
+    
+    for i in range(left, right):
+        coverage[i] += 1
+
+count = sum(1 for x in coverage if x >= 2)
+
+print(count)

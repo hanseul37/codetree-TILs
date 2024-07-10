@@ -7,18 +7,12 @@ for _ in range(n):
     amount = int(amount)
     if direction == 'R':
         for i in range(amount):
-            if color[point + 100000].count('B') >= 2 and color[point + 100000].count('W') >= 2:
-                continue
-            else:
-                color[point + 100000] += 'B' 
+            color[point + 100000] += 'B' 
             if i != amount - 1:
                 point += 1 
     else:
         for i in range(amount):
-            if color[point + 100000].count('B') >= 2 and color[point + 100000].count('W') >= 2:
-                continue
-            else:
-                color[point + 100000] += 'W' 
+            color[point + 100000] += 'W' 
             if i != amount - 1:
                 point -= 1 
 

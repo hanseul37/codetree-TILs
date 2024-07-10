@@ -26,7 +26,7 @@ w, b, g = 0, 0, 0
 for i in range(200000):
     if color[i] == '':
         continue
-    elif color[i].count('B') == 2 and color[i].count('W') == 2:
+    elif color[i].count('B') >= 2 and color[i].count('W') >= 2:
         g += 1
     elif color[i][-1] == 'W':
         w += 1

@@ -21,8 +21,6 @@ for _ in range(n):
                 color[point + 100000] += 'W' 
             if i != amount - 1:
                 point -= 1 
-    for i in range(99998, 100002):
-        print(color[i], end=' ')
 
 w, b, g = 0, 0, 0
 for i in range(200000):

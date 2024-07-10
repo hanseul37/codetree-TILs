@@ -1,14 +1,11 @@
 n = int(input())
 color = ['' for i in range(200000)]
 point = 0
-last_direction = ''
 
 for _ in range(n):
     amount, direction = input().split()
     amount = int(amount)
     if direction == 'R':
-        if last_direction == 'R':
-            point += 1
         for i in range(amount):
             if color[point + 100000] == 'W':
                 color[point + 100000] = 'GB'
@@ -19,12 +16,11 @@ for _ in range(n):
             elif color[point + 100000] == 'G':
                 continue
             else:
-                color[point + 100000] = 'B' 
+                if color[point + 100000] == '': 
+                    color[point + 100000] = 'B' 
             if i != amount - 1:
                 point += 1 
     else:
-        if last_direction == 'L':
-            point += 1
         for i in range(amount):
             if color[point + 100000] == 'B':
                 color[point + 100000] = 'GW'
@@ -35,10 +31,10 @@ for _ in range(n):
             elif color[point + 100000] == 'G':
                 continue
             else:
-                color[point + 100000] = 'W' 
+                if color[point + 100000] == '':
+                    color[point + 100000] = 'W' 
             if i != amount - 1:
                 point -= 1 
-    last_direction = direction
 
 w, b, g = 0, 0, 0
 for i in range(200000):

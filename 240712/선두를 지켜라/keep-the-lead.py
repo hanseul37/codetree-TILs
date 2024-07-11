@@ -27,7 +27,7 @@ for i in range(len(a)):
         lead = now_lead
         cnt += 1
 
-if cnt != -1:
+if cnt != 0:
     print(cnt - 1)
 else:
     print(0)

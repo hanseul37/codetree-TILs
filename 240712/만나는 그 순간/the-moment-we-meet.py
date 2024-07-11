@@ -25,7 +25,12 @@ for _ in range(m):
             b_point += 1
             b.append(b_point)
     
+flag = 0  
 for i in range(len(a)):
     if i != 0 and a[i] == b[i]:
-        print(i + 1)
+        flag = i + 1
         break
+if flag != 0:
+    print(flag)
+else:
+    print(-1)

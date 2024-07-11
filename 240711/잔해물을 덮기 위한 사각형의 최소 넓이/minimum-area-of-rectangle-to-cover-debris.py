@@ -26,4 +26,7 @@ for i in range(2000):
             if i > ymax:
                 ymax = i
 
-print((xmax - xmin + 1) * (ymax - ymin + 1))
+if xmin == 2000 or ymin == 2000:
+    print(0)
+else:
+    print((xmax - xmin + 1) * (ymax - ymin + 1))

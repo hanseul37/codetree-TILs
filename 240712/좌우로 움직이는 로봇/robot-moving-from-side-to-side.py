@@ -26,8 +26,13 @@ for _ in range(m):
 cnt = 0
 if len(a) > len(b):
     max_len = len(a)
+    for i in range(len(b), len(a)):
+        b[i] = b[len(b) - 1]
 else:
-    max_len = len(b)
+    max_len = len(a)
+    for i in range(len(a), len(b)):
+        a[i] = a[len(a) - 1]
+
 for i in range(max_len):
     if len(a) > len(b) and i > len(b) - 1:
         if a[i] == b[-1] and a[i - 1] != b[-2]:

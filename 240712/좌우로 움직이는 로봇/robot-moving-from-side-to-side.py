@@ -27,11 +27,13 @@ cnt = 0
 if len(a) > len(b):
     max_len = len(a)
     min_len = len(b)
-    b.append(b[min_len - 1])
+    for _ in range(max_len - min_len):
+        b.append(b[min_len - 1])
 elif len(a) < len(b):
     max_len = len(b)
     min_len = len(a)
-    a.append(a[min_len - 1])
+    for _ in range(max_len - min_len):
+        a.append(a[min_len - 1])
 
 for i in range(max_len):
     if len(a) > len(b) and i > len(b) - 1:

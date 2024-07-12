@@ -35,7 +35,7 @@ elif len(a) < len(b):
     for _ in range(max_len - min_len):
         a.append(a[min_len - 1])
 
-for i in range(max_len):
+for i in range(1, max_len):
     if len(a) > len(b) and i > len(b) - 1:
         if a[i] == b[-1] and a[i - 1] != b[-2]:
             cnt += 1

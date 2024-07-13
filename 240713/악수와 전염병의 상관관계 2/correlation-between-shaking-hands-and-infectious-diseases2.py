@@ -20,11 +20,11 @@ for time in timeline:
     if infection[time.x - 1] == 1:
         if count[time.x - 1] < K:
             infection[time.y - 1] = 1
-            count[time.x - 1] += 1
+        count[time.x - 1] += 1
     if infection[time.y - 1] == 1:
         if count[time.y - 1] < K:
             infection[time.x - 1] = 1
-            count[time.y - 1] += 1
+        count[time.y - 1] += 1
 
 for infect in infection:
     print(infect, end='')

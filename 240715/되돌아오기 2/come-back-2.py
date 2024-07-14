@@ -15,6 +15,7 @@ for i in range(len(order)):
     if x == 0 and y == 0:
         find = True
         print(i + 1)
+        break
 
 if not find:
     print(-1)

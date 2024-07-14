@@ -22,3 +22,5 @@ for _ in range(n):
             break
     if find == 1:
         break
+if find == 0:
+    print(-1)

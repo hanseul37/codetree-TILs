@@ -17,7 +17,7 @@ for i in range(n * m):
         direction = (direction + 1) % 4
     x += dx[direction]
     y += dy[direction]
-    arr[y][x] = chr(i + 65)
+    arr[y][x] = chr(i % 24 + 65)
 
 for i in range(n):
     for j in range(m):

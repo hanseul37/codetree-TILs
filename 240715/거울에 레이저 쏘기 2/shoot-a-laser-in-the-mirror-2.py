@@ -28,11 +28,17 @@ while(in_range(r, c, n)):
     if arr[r][c] == '\\':
         r += dy1[direction]
         c += dx1[direction]
-        direction = (direction + 1) % 4
+        if direction % 2 == 0:
+            direction = (direction - 1) % 4
+        else:
+            direction = (direction + 1) % 4
     else:
         r += dy2[direction]
         c += dx2[direction]
-        direction = (direction - 1) % 4
+        if direction % 2 == 0:
+            direction = (direction + 1) % 4
+        else:
+            direction = (direction - 1) % 4
     cnt += 1
 
-print(cnt + 1)
+print(cnt)

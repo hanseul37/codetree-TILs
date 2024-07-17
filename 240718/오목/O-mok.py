@@ -4,28 +4,16 @@ for _ in range(19):
     board.append(room)
 
 def in_range1(x, y):
-    for i in range(1, 5):
-        if not 0 <= x < 19 and 0 <= (y + i) < 19:
-            return False
-    return True
+    return y + 4 < 19
 
 def in_range2(x, y):
-    for i in range(1, 5):
-        if not 0 <= (x + i) < 19 and 0 <= y < 19:
-            return False
-    return True
+    return x + 4 < 19
 
 def in_range3(x, y):
-    for i in range(1, 5):
-        if not 0 <= (x + i) < 19 and 0 <= (y + i) < 19:
-            return False
-    return True
+    return x + 4 < 19 and y + 4 < 19
 
 def in_range4(x, y):
-    for i in range(1, 5):
-        if not 0 <= (x - i) < 19 and 0 <= (y + i) < 19:
-            return False
-    return True
+    return x - 4 >= 0 and y + 4 < 19
 
 winner = 0
 x, y = -1, -1

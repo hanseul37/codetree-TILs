@@ -1,5 +1,3 @@
-import sys
-
 n = int(input())
 arr = []
 for _ in range(n):
@@ -7,7 +5,7 @@ for _ in range(n):
     arr.append(num)
 
 
-max = -sys.maxsize
+max = -1
 for i in range(n - 2):
     for j in range(i + 1, n - 1):
         for k in range(j + 1, n):
@@ -19,4 +17,5 @@ for i in range(n - 2):
                 sum = int(arr[i]) + int(arr[j]) + int(arr[k])
                 if max < sum:
                     max = sum
+
 print(max)

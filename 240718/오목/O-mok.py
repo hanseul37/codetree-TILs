@@ -5,25 +5,25 @@ for _ in range(19):
 
 def in_range1(x, y):
     for i in range(1, 5):
-        if not 0 <= x < 19 and 0 <= y + i < 19:
+        if not 0 <= x < 19 and 0 <= (y + i) < 19:
             return False
     return True
 
 def in_range2(x, y):
     for i in range(1, 5):
-        if not 0 <= x + i < 19 and 0 <= y < 19:
+        if not 0 <= (x + i) < 19 and 0 <= y < 19:
             return False
     return True
 
 def in_range3(x, y):
     for i in range(1, 5):
-        if not 0 <= x + i < 19 and 0 <= y + i < 19:
+        if not 0 <= (x + i) < 19 and 0 <= (y + i) < 19:
             return False
     return True
 
 def in_range4(x, y):
     for i in range(1, 5):
-        if not 0 <= x - i < 19 and 0 <= y + i < 19:
+        if not 0 <= (x - i) < 19 and 0 <= (y + i) < 19:
             return False
     return True
 

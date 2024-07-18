@@ -1,5 +1,5 @@
 n, k = list(map(int, input().split()))
-arr = [0] * 100000
+arr = [0] * 100001
 for _ in range(n):
     location, alpha = input().split()
     if alpha == 'G':
@@ -8,9 +8,9 @@ for _ in range(n):
         arr[int(location) - 1] = 2
 
 max_value = 0
-for i in range(10000 - k):
+for i in range(10001 - k):
     sum = 0
-    for j in range(k + 1):
+    for j in range(i, i + k + 1):
         sum += arr[j]
     max_value = max(max_value, sum)
 

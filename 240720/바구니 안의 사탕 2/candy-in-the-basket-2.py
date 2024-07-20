@@ -5,7 +5,7 @@ for _ in range(n):
     arr[bucket + 200] += candy
 
 max_candy = 0
-for i in range(200 + k, 501 - k):
+for i in range(200, 301):
     sum_candy = 0
     for j in range(i - k, i + k + 1):
         sum_candy = sum(arr[i-k:i+k+1])

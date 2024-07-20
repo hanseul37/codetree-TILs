@@ -6,11 +6,9 @@ for _ in range(n):
 
 max_candy = 0
 for i in range(k, 101 - k):
-    sum = 0
+    sum_candy = 0
     for j in range(i - k, i + k + 1):
-        sum += arr[j]
-    if sum > max_candy:
-        print(i)
-    max_candy = max(max_candy, sum)
+        sum_candy = sum(arr[i-k:i+k+1])
+    max_candy = max(max_candy, sum_candy)
 
 print(max_candy)

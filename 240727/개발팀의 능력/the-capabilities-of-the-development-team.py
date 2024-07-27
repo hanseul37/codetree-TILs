@@ -2,7 +2,7 @@ arr = list(map(int, input().split()))
 diff = 2000
 for i in range(5):
     for j in range(i + 1, 5):
-        for k in range(j + 1, 5):
+        for k in range(5):
             for l in range(k + 1, 5):
                 ability = [0] * 3
                 ability[0] = arr[i] + arr[j]

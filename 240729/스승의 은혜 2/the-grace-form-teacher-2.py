@@ -3,6 +3,7 @@ students = []
 for _ in range(n):
     price = int(input())
     students.append(price)
+students.sort()
 
 max_cnt = 0
 for i in range(n):

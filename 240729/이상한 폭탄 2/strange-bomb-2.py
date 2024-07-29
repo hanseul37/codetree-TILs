@@ -9,6 +9,6 @@ for i in range(n):
     for j in range(n):
         if i == j:
             continue
-        elif abs(i - j) <= 3 and bombs[i] == bombs[j]:
+        elif abs(i - j) <= k and bombs[i] == bombs[j]:
             num = max(num, bombs[i])
 print(num)

@@ -3,7 +3,7 @@ students = []
 for _ in range(n):
     student = list(map(int, input().split()))
     students.append(student)
-students.sort()
+students.sort(key=lambda x: x[0] + x[1])
 
 max_cnt = 0
 for i in range(n):

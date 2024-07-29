@@ -12,19 +12,15 @@ for _ in range(S):
     sick = list(map(int, input().split()))
     sicks.append(sick)
 
-for i in range(M):
-    is_sick_cheese = False
+for cheese_type in range(M):
+    is_sick_cheese = True
     for sick in sicks:
-        for time, cheese_type in people[sick[0] - 1]:
-            if time < sick[1] and cheese_type == i:
-                is_sick_cheese = True
-                break
-        if not is_sick_cheese:
+        sick_person = sick[0] - 1
+        sick_time = sick[1]
+        if not any(time < sick_time and m == cheese_type for time, m in people[sick_person]):
+            is_sick_cheese = False
             break
-    if is_sick_cheese:
-        cheese[i] = 1
-    else:
-        cheese[i] = 0
+    cheese[cheese_type] = 1 if is_sick_cheese else 0
 
 max_cnt = 0
 for i in range(M):

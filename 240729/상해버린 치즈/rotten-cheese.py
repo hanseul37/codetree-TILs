@@ -1,13 +1,11 @@
 N, M, D, S = list(map(int, input().split()))
-people = [
-    [0 for _ in range(101)]
-    for i in range(N)
-]
+
+people = [set() for _ in range(N)]
 cheese = [0] * M
 
 for _ in range(D):
     p, m, t = list(map(int, input().split()))
-    people[p - 1][t] = m - 1
+    people[p - 1].add((t, m - 1))
 
 sicks = []
 for _ in range(S):
@@ -15,19 +13,28 @@ for _ in range(S):
     sicks.append(sick)
 
 for i in range(M):
-    for j in range(S):
-        find = people[sicks[j][0] - 1][:sicks[j][1]]
-        if not i in find:
+    is_sick_cheese = False
+    for sick in sicks:
+        for time, cheese_type in people[sick[0] - 1]:
+            if time < sick[1] and cheese_type == i:
+                is_sick_cheese = True
+                break
+        if not is_sick_cheese:
             break
-    cheese[i] = 1
+    if is_sick_cheese:
+        cheese[i] = 1
+    else:
+        cheese[i] = 0
 
-max_cnt = 0 
+max_cnt = 0
 for i in range(M):
-    cnt = 0
     if cheese[i] == 1:
+        cnt = 0
         for j in range(N):
-            if i in people[j]:
-                cnt += 1
-    max_cnt = max(max_cnt, cnt)
+            for _, cheese_type in people[j]:
+                if cheese_type == i:
+                    cnt += 1
+                    break
+        max_cnt = max(max_cnt, cnt)
 
 print(max_cnt)

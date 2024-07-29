@@ -16,7 +16,7 @@ for _ in range(S):
 
 for i in range(M):
     for j in range(S):
-        find = people[sicks[j][0]][:sicks[j][1]]
+        find = people[sicks[j][0] - 1][:sicks[j][1]]
         if not i in find:
             break
     cheese[i] = 1

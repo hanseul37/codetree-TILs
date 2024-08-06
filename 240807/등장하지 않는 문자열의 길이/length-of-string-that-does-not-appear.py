@@ -8,7 +8,7 @@ for i in range(1, n + 1):
         for k in range(j, j + i):
             first.append(word[k])
         first_str = ''.join(first)
-        second = word[j + i:]
+        second = word[j + 1:]
         if first_str in second:
             max_length = i
             break

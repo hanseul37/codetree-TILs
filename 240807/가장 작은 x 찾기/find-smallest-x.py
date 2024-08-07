@@ -5,7 +5,7 @@ for _ in range(n):
     a_arr.append(a)
     b_arr.append(b)
 
-for i in range(1, 11):
+for i in range(1, 10001):
     flag = 0
     for j in range(n):
         if not (a_arr[j] <= i * (2 ** (j + 1)) <= b_arr[j]):

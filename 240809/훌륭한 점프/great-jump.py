@@ -2,7 +2,7 @@ n, k = map(int, input().split())
 arr = list(map(int, input().split()))
 
 point = 0
-values = []
+values = [arr[0]]
 while point < n - 1 :
     if point + k >= n - 1:
         values.append(arr[n - 1])

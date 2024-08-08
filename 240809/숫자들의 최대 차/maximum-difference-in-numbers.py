@@ -5,7 +5,7 @@ for _ in range(n):
     arr.append(num)
 
 max_cnt = 0
-for i in range(1001):
+for i in range(11001):
     cnt = 0
     for j in range(n):
         if i <= arr[j] <= i + k:

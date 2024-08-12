@@ -8,7 +8,7 @@ max_cnt = 0
 index = 0
 for i in range(n):
     point = arr[i]
-    cnt = 0
+    cnt = 1
     for j in range(n - 1):
         if arr[j] == point:
             for k in range(j + 1, n):

@@ -1,30 +1,25 @@
 n, k = map(int, input().split())
-arr = []
+bombs = []
 for _ in range(n):
-    bomb = int(input())
-    arr.append(bomb)
+    bombs.append(int(input()))
+bomb_count = {}
 
-max_cnt = 0
-index = 0
 for i in range(n):
-    point = arr[i]
-    cnt = 0
-    location = []
-    for j in range(n - 1):
-        flag = 0
-        if arr[j] == point:
-            if j in location:
-                flag = 1
-            else:
-                location.append(j)
-            for l in range(j + 1, n):
-                if arr[l] == point and l - j <= 3:
-                    location.append(l)
-                    if flag == 1:
-                        cnt += 1
-                    else:
-                        cnt += 2
-    if cnt > max_cnt:
-        max_cnt = cnt
-        index = point
-print(index)
+    type = bombs[i]
+    if type not in bomb_count:
+        bomb_count[type] = 0
+    
+    for j in range(i + 1, min(i + k + 1, n)):
+        if bombs[j] == type:
+            bomb_count[type] += 1
+            bomb_count[bombs[j]] += 1
+
+max_explosions = 0
+max_type = 0
+
+for type, count in bomb_count.items():
+    if count > max_explosions or (count == max_explosions and type > max_type):
+        max_explosions = count
+        max_type = type
+
+print(max_type)

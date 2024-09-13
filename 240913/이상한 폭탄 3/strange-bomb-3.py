@@ -21,6 +21,8 @@ for i in range(1000001):
                         point = j - 1
                         break
         point += 1
+    if cnt != 0:
+        cnt += 1
     if max_cnt < cnt:
         max_cnt = cnt
         bomb = i

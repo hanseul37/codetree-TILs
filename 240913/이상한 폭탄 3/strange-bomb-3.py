@@ -15,6 +15,8 @@ for i in range(1000001):
                         point = j - 1
                         break
             else:
+                if point == n - 1:
+                    cnt += 1
                 for j in range(point + 1, n):
                     if arr[j] == i:
                         cnt += 1

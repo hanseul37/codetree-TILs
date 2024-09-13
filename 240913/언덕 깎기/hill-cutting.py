@@ -3,7 +3,7 @@ arr = []
 for i in range(n):
     arr.append(int(input()))
 
-min_cost = 100 * 100
+min_cost = 100 * 100 * n
 for i in range(min(arr), max(arr) + 1):
     cost = 0
     for j in range(n):
@@ -11,7 +11,7 @@ for i in range(min(arr), max(arr) + 1):
             if arr[j] < i:
                 cost += (arr[j] - i) * (arr[j] - i)
             else:
-                cost += (arr[j] - i - 17) * (arr[j] - i - 17)
+                cost += (arr[j] - (i + 17)) * (arr[j] - (i + 17))
 
     min_cost = min(min_cost, cost)
 print(min_cost)

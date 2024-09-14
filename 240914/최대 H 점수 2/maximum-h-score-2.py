@@ -11,6 +11,8 @@ def check(arr, h):
 
 h = 0
 for i in range(1, 101):
-    if check(arr1, i) > i and check(arr1, i) - check(arr2, i) <= l:
+    if check(arr1, i) >= i:
+        h = i
+    elif check(arr2, i) >= i and check(arr2, i) - check(arr1, i) <= l:
         h = i
 print(h)

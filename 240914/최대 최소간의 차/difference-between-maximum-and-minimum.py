@@ -1,7 +1,7 @@
 n, k = map(int, input().split())
 arr = list(map(int, input().split()))
 
-min_diff = 10000
+min_diff = 10000 * n
 for i in range(min(arr), max(arr) - k + 1):
     diff = 0
     for j in range(n):

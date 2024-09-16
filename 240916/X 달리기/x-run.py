@@ -9,10 +9,10 @@ def check(speed, dist):
         return True
 
 
-speed = 2
-dist = 3
-time = 2
-while speed > 1:
+speed = 1
+dist = 1
+time = 1
+while dist < x:
     if check(speed + 1, dist + speed + 1):
         speed += 1
         dist += speed
@@ -24,4 +24,4 @@ while speed > 1:
         speed -= 1
         dist += speed
         time += 1
-print(time + 1)
+print(time)

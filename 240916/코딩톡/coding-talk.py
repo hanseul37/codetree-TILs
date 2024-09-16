@@ -6,6 +6,11 @@ for i in range(m):
     message[1] = int(message[1])
     messages.append(message)
 
+for i in range(m):
+    if messages[p - 1][1] == messages[i][1]:
+        p = i + 1
+        break
+
 if messages[p - 1][1] == 0:
     programmers = []
 else:

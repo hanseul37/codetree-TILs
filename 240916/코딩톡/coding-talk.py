@@ -6,7 +6,10 @@ for i in range(m):
     message[1] = int(message[1])
     messages.append(message)
 
-programmers = [65 + i for i in range(n)]
+if p == 0:
+    programmers = []
+else:
+    programmers = [65 + i for i in range(n)]
 
 for i in range(p - 1, m):
     if messages[i][0] in programmers:

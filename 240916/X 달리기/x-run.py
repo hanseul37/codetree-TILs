@@ -19,6 +19,7 @@ while speed > 1:
         time += 1
     elif check(speed, dist + speed):
         dist += speed
+        time += 1
     else:
         speed -= 1
         dist += speed

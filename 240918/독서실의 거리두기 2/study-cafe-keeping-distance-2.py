@@ -10,7 +10,7 @@ for i in range(n):
         copy_arr = arr.copy()
         copy_arr[i] = '1'
         cnt = 0
-        for j in range(1, n):
+        for j in range(n):
             if j == n - 1:
                 if copy_arr[j] == '0':
                     cnt += 1

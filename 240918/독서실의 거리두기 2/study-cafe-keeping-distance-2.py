@@ -10,13 +10,8 @@ for i in range(n):
         copy_arr = arr.copy()
         copy_arr[i] = '1'
         cnt = 0
-        for j in range(n):
-            if j == n - 1:
-                if copy_arr[j] == '0':
-                    cnt += 1
-                min_cnt = min(min_cnt, cnt)
-                cnt = 0
-            elif j == 0 and copy_arr[j] == '1':
+        for j in range(copy_arr.index('1') + 1, n):
+            if j == n - 1 and copy_arr[j] == '0':
                 continue
             elif copy_arr[j] == '0':
                 cnt += 1

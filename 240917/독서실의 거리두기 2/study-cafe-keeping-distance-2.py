@@ -1,37 +1,24 @@
 n = int(input())
 arr = list(input())
 max_cnt = 0
-cnt = 0
-end = 1
-for i in range(1, len(arr)):
-    if i == n - 1:
-        if arr[i] == '0':
-            cnt += 1
-        if max_cnt < cnt:
-            max_cnt = cnt
-            end = i
-        cnt = 0
-    elif arr[i] == '0':
-        cnt += 1
+for i in range(1, n):
+    min_cnt = n
+    if arr[i] == '1':
+        continue
     else:
-        if max_cnt < cnt:
-            max_cnt = cnt
-            end = i
+        copy_arr = arr.copy()
+        copy_arr[i] = '1'
         cnt = 0
-
-arr[end - max_cnt // 2 - 1] = '1'
-
-min_cnt = n
-cnt = 0
-for i in range(1, len(arr)):
-    if i == n - 1:
-        if arr[i] == '0':
-            cnt += 1
-        min_cnt = min(max_cnt, cnt)
-        cnt = 0
-    elif arr[i] == '0':
-        cnt += 1
-    else:
-        min_cnt = min(min_cnt, cnt)
-        cnt = 0
-print(min_cnt + 1)
+        for j in range(1, n):
+            if j == n - 1:
+                if copy_arr[j] == '0':
+                    cnt += 1
+                min_cnt = min(min_cnt, cnt)
+                cnt = 0
+            elif copy_arr[j] == '0':
+                cnt += 1
+            else:
+                min_cnt = min(min_cnt, cnt)
+                cnt = 0
+    max_cnt = max(max_cnt, min_cnt)
+print(max_cnt + 1)

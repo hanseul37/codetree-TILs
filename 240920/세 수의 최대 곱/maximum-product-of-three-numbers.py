@@ -1,7 +1,7 @@
 n = int(input())
 arr = list(map(int, input().split()))
 cnt = 0
-max_value = -1000000000
+max_value = -100000000000
 if max(arr) < 0 or min(arr) > 0:
     copy_arr = sorted(arr)
     max_value = copy_arr[-1] * copy_arr[-2] * copy_arr[-3]

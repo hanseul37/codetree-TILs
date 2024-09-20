@@ -1,7 +1,7 @@
 n = int(input())
 arr = list(map(int, input().split()))
 cnt = 0
-max_value = 0
+max_value = -1000
 for i in range(n - 2):
     if arr[i] == 0:
         continue
@@ -23,4 +23,5 @@ for i in range(n - 2):
                 continue
             else:
                 max_value = max(max_value, arr[i] * arr[j] * arr[k])
+max_value = max(max_value, 0)
 print(max_value)

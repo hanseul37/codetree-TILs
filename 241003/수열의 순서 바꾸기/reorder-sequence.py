@@ -4,6 +4,8 @@ min_cnt = n
 for i in range(n - 1, -1, -1):
     temp = arr[i:]
     if temp != sorted(temp):
-        min_cnt = i
+        min_cnt = i + 1
         break
-print(min_cnt + 1)
+if arr == sorted(arr):
+    min_cnt = 0
+print(min_cnt)

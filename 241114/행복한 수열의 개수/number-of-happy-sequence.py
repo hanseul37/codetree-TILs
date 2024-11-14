@@ -11,6 +11,8 @@ for i in range(n):
             happy += 1
             break
         else:
+            if len(check):
+                check.pop()
             check.append(arr[i][j])
 
 for i in range(n):
@@ -20,6 +22,8 @@ for i in range(n):
             happy += 1
             break
         else:
+            if len(check):
+                check.pop()
             check.append(arr[j][i])
 
 print(happy)

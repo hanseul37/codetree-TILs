@@ -5,7 +5,7 @@ flag = 0
 
 def dfs(x, y):
     global flag
-    if x == m and y == n:
+    if x == m - 1 and y == n - 1:
         flag = 1
 
     dxs, dys = [0, 1], [1, 0]

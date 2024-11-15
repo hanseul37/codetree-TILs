@@ -15,8 +15,9 @@ def check(array):
         
 def choose(num):
     global count
-    if num == n and check(arr):
-        count += 1
+    if num == n: 
+        if check(arr):
+            count += 1
         return
         
     for i in range(1, 5):

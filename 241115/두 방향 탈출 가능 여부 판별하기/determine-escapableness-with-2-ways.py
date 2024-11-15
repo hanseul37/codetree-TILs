@@ -13,7 +13,7 @@ def dfs(x, y):
         new_dx = x + dx
         new_dy = y + dy
 
-        if 0 <= new_dx < m and 0 <= new_dy < n and arr[new_dy][new_dx] == 0 and visited[new_dy][new_dx] == 0:
+        if 0 <= new_dx < m and 0 <= new_dy < n and arr[new_dy][new_dx] == 1 and visited[new_dy][new_dx] == 0:
             visited[new_dy][new_dx] = 1
             dfs(new_dx, new_dy)
 

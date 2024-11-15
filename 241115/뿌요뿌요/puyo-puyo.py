@@ -24,10 +24,9 @@ for i in range(n):
             blocks.append(dfs(j, i, arr[i][j]))
 
 blocks.sort(reverse=True)
-cnt, max_block = 0, 0
+cnt, max_block = 0, blocks[0]
 for block in blocks:
     if block >= 4:
         cnt += 1
-        max_block = max(max_block, block)
 
 print(cnt, max_block)

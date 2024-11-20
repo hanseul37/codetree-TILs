@@ -10,7 +10,7 @@ for i in range(n):
                 flag = 0
                 for a in range(i, i + k):
                     for b in range(j, j + l):
-                        if arr[a][b] < 0:
+                        if arr[a][b] <= 0:
                             flag = 1
                             break
                         else:

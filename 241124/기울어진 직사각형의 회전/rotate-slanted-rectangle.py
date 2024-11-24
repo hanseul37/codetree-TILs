@@ -12,7 +12,6 @@ for i in range(m1):
     r += dy[dir][0]
     c += dx[dir][0]
 square.append(line)
-temp1 = arr[r - dy[dir][0]][c - dx[dir][0]]
 
 line = []
 for i in range(m2):
@@ -20,7 +19,6 @@ for i in range(m2):
     r += dy[dir][1]
     c += dx[dir][1]
 square.append(line)
-temp2 = arr[r - dy[dir][1]][c - dx[dir][1]]
 
 line = []
 for i in range(m3):
@@ -28,7 +26,6 @@ for i in range(m3):
     r += dy[dir][2]
     c += dx[dir][2]
 square.append(line)
-temp3 = arr[r - dy[dir][2]][c - dx[dir][2]]
 
 line = []
 for i in range(m4):
@@ -36,7 +33,6 @@ for i in range(m4):
     r += dy[dir][3]
     c += dx[dir][3]
 square.append(line)
-temp4 = arr[r - dy[dir][3]][c - dx[dir][3]]
 
 for i in range(m1):
     r += dy[dir][0]

@@ -5,10 +5,14 @@ r -= 1
 c -= 1
 
 for i in range(arr[r][c]):
-    arr[r - i][c] = 0
-    arr[r + i][c] = 0
-    arr[r][c - i] = 0
-    arr[r][c + i] = 0
+    if 0 <= r - i < n:
+        arr[r - i][c] = 0
+    if 0 <= r + i < n:
+        arr[r + i][c] = 0
+    if 0 <= c - i < n:
+        arr[r][c - i] = 0
+    if 0 <= c + i < n:
+        arr[r][c + i] = 0
 
 for i in range(n):
     for j in range(n - 1, -1, -1):

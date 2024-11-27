@@ -18,9 +18,14 @@ arr[r][c] = 0
 for i in range(n):
     for j in range(n - 1, -1, -1):
         if arr[j][i] == 0:
+            cnt = 0
             for k in range(j, 0, -1):
-                arr[k][i] = arr[k - 1][i]
-            arr[0][i] = 0
+                if arr[k][i] == 0:
+                    cnt += 1
+            for k in range(j, cnt - 1, -1):
+                arr[k][i] = arr[k - cnt][i]
+            for k in range(cnt):
+                arr[k][i] = 0
 
 for i in range(n):
     for j in range(n):

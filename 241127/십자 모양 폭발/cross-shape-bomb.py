@@ -4,11 +4,11 @@ r, c = map(int, input().split())
 r -= 1
 c -= 1
 
-arr[r][c] = 0
-arr[r - 1][c] = 0
-arr[r + 1][c] = 0
-arr[r][c - 1] = 0
-arr[r][c + 1] = 0
+for i in range(arr[r][c]):
+    arr[r - i][c] = 0
+    arr[r + i][c] = 0
+    arr[r][c - i] = 0
+    arr[r][c + i] = 0
 
 for i in range(n):
     for j in range(n - 1, -1, -1):

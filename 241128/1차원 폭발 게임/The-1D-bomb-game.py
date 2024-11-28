@@ -3,7 +3,10 @@ arr = [int(input()) for _ in range(n)]
 
 i, cnt, flag = 0, 0, 0
 point = arr[0]
-while len(arr) > 0:
+while True:
+    if len(arr) == 0:
+        break
+
     if arr[i] == point:
         cnt += 1
         i += 1

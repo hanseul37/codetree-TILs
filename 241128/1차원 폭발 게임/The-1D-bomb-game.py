@@ -1,23 +1,29 @@
 n, m = map(int, input().split())
 arr = [int(input()) for _ in range(n)]
 
-i, cnt = 0, 0
+i, cnt, flag = 0, 0, 0
 point = arr[0]
 while True:
     if arr[i] == point:
         cnt += 1
         i += 1
     else:
+        point = arr[i]
         if cnt >= m:
-            arr = arr[:i] + arr[i + cnt:]
-            i = 0
-            point = arr[0]
-        else:
-            point = arr[i]
-            i += 1
+            arr = arr[:i - cnt] + arr[i:]
+            flag = 1
+        i += 1
         cnt = 1
+
     if i >= len(arr):
-        break
+        if flag == 0:
+            break
+        else:
+            i = 0
+            cnt = 0
+            point = arr[0]
+            flag = 0
+
 if cnt >= m:
     arr = arr[:len(arr) - cnt]
 

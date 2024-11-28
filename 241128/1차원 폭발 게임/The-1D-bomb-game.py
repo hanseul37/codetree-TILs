@@ -12,7 +12,7 @@ while True:
         if cnt >= m:
             arr = arr[:i - cnt] + arr[i:]
             flag = 1
-        i += 1
+        i = i - cnt + 2
         cnt = 1
 
     if i >= len(arr):

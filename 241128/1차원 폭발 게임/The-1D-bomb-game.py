@@ -12,13 +12,16 @@ while True:
         if cnt >= m:
             arr = arr[:i - cnt] + arr[i:]
             flag = 1
-        i = i - cnt + 2
+            i = i - cnt
+        i += 1
         cnt = 1
 
     if i >= len(arr):
         if flag == 0:
             break
         else:
+            if cnt >= m:
+                arr = arr[:len(arr) - cnt]
             i = 0
             cnt = 0
             point = arr[0]

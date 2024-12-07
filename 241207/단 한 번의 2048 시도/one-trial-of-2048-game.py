@@ -46,9 +46,9 @@ elif direction == 'U':
         non_zero, zero = [], []
         for j in range(4):
             if arr[j][i] == 0:
-                zero.append(arr[i][j])
+                zero.append(arr[j][i])
             else:
-                non_zero.append(arr[i][j])
+                non_zero.append(arr[j][i])
         for j in range(len(non_zero)):
             arr[j][i] = non_zero[j]
         for j in range(len(non_zero), 4):
@@ -66,9 +66,9 @@ elif direction == 'D':
         non_zero, zero = [], []
         for j in range(4):
             if arr[j][i] == 0:
-                zero.append(arr[i][j])
+                zero.append(arr[j][i])
             else:
-                non_zero.append(arr[i][j])
+                non_zero.append(arr[j][i])
         for j in range(len(zero)):
             arr[j][i] = 0
         for j in range(len(zero), 4):

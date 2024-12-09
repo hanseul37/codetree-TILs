@@ -23,6 +23,7 @@ for i in range(m):
                     arr[l][k] = 0
                 for l in range(n - len(non_zero), n):
                     arr[l][k] = non_zero[l - n + len(non_zero)]
+            break
 
 for i in range(n):
     for j in range(n):

@@ -25,8 +25,8 @@ for _ in range(k + 1):
                         for b in range(n - len(non_zero), n):
                             arr[b][a] = non_zero[b - n + len(non_zero)]
                     j = 0
-                point = arr[j][i]
-                cnt = 1
+                    point = arr[j][i]
+                    cnt = 1
             else:
                 if cnt >= m:
                     for k in range(j - cnt, j):

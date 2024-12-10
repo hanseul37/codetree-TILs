@@ -16,6 +16,15 @@ for _ in range(k):
                 if cnt >= m:
                     for k in range(j - cnt, j):
                         arr[k][i] = 0
+                    for a in range(n):
+                        non_zero = []
+                        for b in range(n):
+                            if arr[b][a] != 0:
+                                non_zero.append(arr[b][a])
+                        for b in range(n - len(non_zero)):
+                            arr[b][a] = 0
+                        for b in range(n - len(non_zero), n):
+                            arr[b][a] = non_zero[b - n + len(non_zero)]
                     j = 0
                 point = arr[j][i]
                 cnt = 1

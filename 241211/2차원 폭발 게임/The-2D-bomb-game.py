@@ -1,7 +1,7 @@
 n, m, k = map(int, input().split())
 arr = [list(map(int, input().split())) for _ in range(n)]
 
-for _ in range(k):
+for _ in range(k + 1):
     for i in range(n):
         point = arr[0][i]
         cnt = 1

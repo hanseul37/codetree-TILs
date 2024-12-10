@@ -12,6 +12,21 @@ for _ in range(k + 1):
                 continue
             elif arr[j][i] == point:
                 cnt += 1
+                if j + 1 == n and cnt >= m:
+                    for k in range(n - cnt, n):
+                        arr[k][i] = 0
+                    for a in range(n):
+                        non_zero = []
+                        for b in range(n):
+                            if arr[b][a] != 0:
+                                non_zero.append(arr[b][a])
+                        for b in range(n - len(non_zero)):
+                            arr[b][a] = 0
+                        for b in range(n - len(non_zero), n):
+                            arr[b][a] = non_zero[b - n + len(non_zero)]
+                    j = 0
+                point = arr[j][i]
+                cnt = 1
             else:
                 if cnt >= m:
                     for k in range(j - cnt, j):
@@ -29,9 +44,6 @@ for _ in range(k + 1):
                 point = arr[j][i]
                 cnt = 1
             j += 1
-        if cnt >= m:
-            for k in range(n - cnt, n):
-                arr[k][i] = 0
     
     for i in range(n):
         non_zero = []

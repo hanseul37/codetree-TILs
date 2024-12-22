@@ -7,7 +7,7 @@ dxs, dys = [0, 0, -1, 1], [-1, 1, 0, 0]
 ans = [arr[r][c]]
 while direction < 4:
     for i in range(4):
-        if not 0 <= r + dys[direction] < n and  0 <= c + dxs[direction] < n:
+        if not (0 <= r + dys[direction] < n and 0 <= c + dxs[direction] < n):
             direction += 1
         elif arr[r][c] >= arr[r + dys[direction]][c + dxs[direction]]:
             direction += 1

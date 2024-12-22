@@ -4,12 +4,13 @@ k -= 1
 target, found = 0, 0
 for i in range(n):
     if found:
-        target = i - 2
+        target -= 1
         break
     for j in range(m):
         if arr[i][k + j] != 0:
             found = 1
             break
+    target = i
 
 for i in range(m):
     arr[target][k + i] = 1

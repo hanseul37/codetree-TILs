@@ -4,7 +4,7 @@ turns = [list(input().split()) for _ in range(k)]
 
 arr = [[0] * n for _ in range(n)]
 for i in range(m):
-    arr[apples[0] - 1][apples[1] - 1] = 1
+    arr[apples[i][0] - 1][apples[i][1] - 1] = 1
 
 snake = [[0, 0]]
 

@@ -65,4 +65,5 @@ for i in range(k):
             if find_apple(snake[-1][0], snake[-1][1] - 1):
                 snake.pop(0)
             cnt += 1
+    print(snake[-1])
 print(cnt)

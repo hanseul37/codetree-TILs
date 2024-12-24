@@ -34,35 +34,35 @@ for i in range(k):
             if check(snake[-1][0] - 1, snake[-1][1]):
                 flag = 1
                 break 
+            snake.append([snake[-1][0] - 1, snake[-1][1]])
             if find_apple(snake[-1][0] - 1, snake[-1][1]):
                 snake.pop(0)
-            snake.append([snake[-1][0] - 1, snake[-1][1]])
             cnt += 1
     elif turns[i][0] == 'D':
         for j in range(int(turns[i][1])):
             if check(snake[-1][0] + 1, snake[-1][1]):
                 flag = 1
                 break 
+            snake.append([snake[-1][0] + 1, snake[-1][1]])
             if find_apple(snake[-1][0] + 1, snake[-1][1]):
                 snake.pop(0)
-            snake.append([snake[-1][0] + 1, snake[-1][1]])
             cnt += 1
     elif turns[i][0] == 'R':
         for j in range(int(turns[i][1])):
             if check(snake[-1][0], snake[-1][1] + 1):
                 flag = 1
                 break 
+            snake.append([snake[-1][0], snake[-1][1] + 1])
             if find_apple(snake[-1][0], snake[-1][1] + 1):
                 snake.pop(0)
-            snake.append([snake[-1][0], snake[-1][1] + 1])
             cnt += 1
     elif turns[i][0] == 'L':
         for j in range(int(turns[i][1])):
             if check(snake[-1][0], snake[-1][1] - 1):
                 flag = 1
                 break 
+            snake.append([snake[-1][0], snake[-1][1] - 1])
             if find_apple(snake[-1][0], snake[-1][1] - 1):
                 snake.pop(0)
-            snake.append([snake[-1][0], snake[-1][1] - 1])
             cnt += 1
 print(cnt)

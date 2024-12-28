@@ -15,7 +15,7 @@ def check(y, x):
         if snake[i][0] == y and snake[i][1] == x:
             ans = 1
             break
-    if not 0 <= x < n and 0 <= y < n:
+    if not (0 <= x < n and 0 <= y < n):
         ans = 1
     return ans
 

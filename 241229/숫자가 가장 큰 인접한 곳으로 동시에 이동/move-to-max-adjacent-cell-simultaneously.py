@@ -16,7 +16,7 @@ for _ in range(t):
                     if 0 <= i + dys[k] < n and 0 <= j + dxs[k] < n and max_value < arr[i + dys[k]][j + dxs[k]]:
                         max_value = arr[i + dys[k]][j + dxs[k]]
                         direction = k
-                new_beads[i + dys[direction]][j + dxs[direction]] = 1
+                new_beads[i + dys[direction]][j + dxs[direction]] += 1
     for i in range(n):
         for j in range(n):
             if new_beads[i][j] != 1:

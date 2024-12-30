@@ -7,22 +7,22 @@ arr = [[0] * n for _ in range(n)]
 top, front, right = 1, 2, 3
 arr[r][c] = 7 - top
 for i in range(m):
-    if directions[i] == 'L':
+    if directions[i] == 'L' and 0 <= c - 1:
         temp = top
         top = right
         right = 7 - temp
         c -= 1
-    elif directions[i] == 'R':
+    elif directions[i] == 'R' and c + 1 < n:
         temp = top
         top = 7 - right
         right = temp
         c += 1
-    elif directions[i] == 'U':
+    elif directions[i] == 'U' and 0 <= r - 1:
         temp = top
         top = front
         front = 7 - temp
         r -= 1
-    elif directions[i] == 'D':
+    elif directions[i] == 'D' and r + 1 < n:
         temp = top
         top = 7 - front
         front = temp

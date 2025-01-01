@@ -1,9 +1,9 @@
 n = int(input())
 x, y = map(int, input().split())
-arr = [list(input().split()) for _ in range(n)]
+arr = [input() for _ in range(n)]
 x -= 1
 y -= 1
-dxs, dys = [1, 0, -1, 0], [0, -1, 0, 1]
+dxs, dys = [1, 0, -1, 0], [0, 1, 0, -1]
 time, direction = 0, 0
 visited = set()
 
@@ -19,7 +19,6 @@ while True:
     rx, ry = x + dxs[(direction + 1) % 4], y + dys[(direction + 1) % 4]
     
     if 0 <= rx < n and 0 <= ry < n and arr[ry][rx] == '#':
-        nx, ny = x + dxs[direction], y + dys[direction]
         if 0 <= x + dxs[direction] < n and 0 <= y + dys[direction] < n and arr[y + dys[direction]][x + dxs[direction]] != '#':
             x, y = x + dxs[direction], y + dys[direction]
             time += 1

@@ -8,28 +8,28 @@ for _ in range(t):
         r, c, d = input().split()
         beads.append([int(r) - 1, int(c) - 1, d])
     for _ in range(2 * n):
-        new_beads = [[-1, -1, ''] for _ in range(len(beads))]
+        new_beads = []
         for i in range(len(beads)):
             if beads[i][2] == 'U':
                 if beads[i][0] != 0:
-                    new_beads[i] = [beads[i][0] - 1, beads[i][1], beads[i][2]]
+                    new_beads.append([beads[i][0] - 1, beads[i][1], beads[i][2]])
                 else:
-                    new_beads[i] = [beads[i][0], beads[i][1], 'D']
+                    new_beads.append([beads[i][0], beads[i][1], 'D'])
             elif beads[i][2] == 'D':
                 if beads[i][0] != n - 1:
-                    new_beads[i] = [beads[i][0] + 1, beads[i][1], beads[i][2]]
+                    new_beads.append([beads[i][0] + 1, beads[i][1], beads[i][2]])
                 else:
-                    new_beads[i] = [beads[i][0], beads[i][1], 'U']
+                    new_beads.append([beads[i][0], beads[i][1], 'U'])
             elif beads[i][2] == 'R':
                 if beads[i][1] != n - 1:
-                    new_beads[i] = [beads[i][0], beads[i][1] + 1, beads[i][2]]
+                    new_beads.append([beads[i][0], beads[i][1] + 1, beads[i][2]])
                 else:
-                    new_beads[i] = [beads[i][0], beads[i][1], 'L']
+                    new_beads.append([beads[i][0], beads[i][1], 'L'])
             elif beads[i][2] == 'L':
                 if beads[i][1] != 0:
-                    new_beads[i] = [beads[i][0], beads[i][1] - 1, beads[i][2]]
+                    new_beads.append([beads[i][0], beads[i][1] - 1, beads[i][2]])
                 else:
-                    new_beads[i] = [beads[i][0], beads[i][1], 'R']
+                    new_beads.append([beads[i][0], beads[i][1], 'R'])
             
         coord_counts = Counter((bead[0], bead[1]) for bead in new_beads)
 

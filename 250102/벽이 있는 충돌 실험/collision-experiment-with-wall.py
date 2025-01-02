@@ -1,3 +1,5 @@
+from collections import Counter
+
 t = int(input())
 for _ in range(t):
     n, m = map(int, input().split())
@@ -28,15 +30,11 @@ for _ in range(t):
                 else:
                     new_beads[i] = [beads[i][0], beads[i][1], 'R']
             
-        unique_beads = []
-        visited = set()  
-        for bead in new_beads:
-            coord = (bead[0], bead[1])
-            if coord in visited:
-                unique_beads = [b for b in unique_beads if (b[0], b[1]) != coord]
-            else:
-                visited.add(coord)
-                unique_beads.append(bead)
-        beads = unique_beads  
+        coord_counts = Counter((bead[0], bead[1]) for bead in new_beads)
+
+        # 한 번만 등장한 좌표만 남김 (충돌하지 않은 구슬들)
+        unique_beads = [bead for bead in new_beads if coord_counts[(bead[0], bead[1])] == 1]
+
+        beads = unique_beads 
     print(len(beads))     
 

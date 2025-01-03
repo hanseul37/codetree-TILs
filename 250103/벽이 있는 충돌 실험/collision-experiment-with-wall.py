@@ -1,37 +1,43 @@
+from collections import defaultdict
+
 t = int(input())
 for _ in range(t):
     n, m = map(int, input().split())
     beads = []
     for _ in range(m):
         r, c, d = input().split()
-        beads.append([int(r) - 1, int(c) - 1, d])
+        beads.append((int(r) - 1, int(c) - 1, d))
 
     for _ in range(2 * n):
-        new_beads = []
-        positions = []  # 새로 이동한 위치를 저장
-        to_remove = set()  # 충돌 위치 저장
-
+        next_positions = defaultdict(list)  # 위치별로 구슬을 그룹화
         for bead in beads:
             r, c, d = bead
             if d == 'U':
-                new_r, new_c, new_d = (r - 1, c, 'U') if r > 0 else (r, c, 'D')
+                if r > 0:
+                    next_positions[(r - 1, c)].append(('U', r, c))
+                else:
+                    next_positions[(r, c)].append(('D', r, c))
             elif d == 'D':
-                new_r, new_c, new_d = (r + 1, c, 'D') if r < n - 1 else (r, c, 'U')
+                if r < n - 1:
+                    next_positions[(r + 1, c)].append(('D', r, c))
+                else:
+                    next_positions[(r, c)].append(('U', r, c))
             elif d == 'R':
-                new_r, new_c, new_d = (r, c + 1, 'R') if c < n - 1 else (r, c, 'L')
+                if c < n - 1:
+                    next_positions[(r, c + 1)].append(('R', r, c))
+                else:
+                    next_positions[(r, c)].append(('L', r, c))
             elif d == 'L':
-                new_r, new_c, new_d = (r, c - 1, 'L') if c > 0 else (r, c, 'R')
+                if c > 0:
+                    next_positions[(r, c - 1)].append(('L', r, c))
+                else:
+                    next_positions[(r, c)].append(('R', r, c))
 
-            # 새로운 위치 추가 및 충돌 확인
-            if [new_r, new_c] in positions:
-                to_remove.add((new_r, new_c))
-            else:
-                positions.append([new_r, new_c])
-                new_beads.append([new_r, new_c, new_d])
-
-        # 충돌 위치 제거
+        # 충돌 처리: 하나만 있는 구슬만 남김
         beads = [
-            bead for bead in new_beads if (bead[0], bead[1]) not in to_remove
+            (r, c, d[0])
+            for (r, c), dirs in next_positions.items()
+            if len(dirs) == 1
         ]
 
     print(len(beads))

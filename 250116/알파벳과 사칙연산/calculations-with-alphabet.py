@@ -16,7 +16,7 @@ def calculate(numbers):
             result *= mapping.get(expression[i + 1])
     return result
 
-max_result = 0
+max_result = -2 ** 31
 def simulation(numbers):
     global max_result
     if len(numbers) == len(alphabet):

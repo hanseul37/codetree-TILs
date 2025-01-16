@@ -7,7 +7,7 @@ def pick(num):
         print()
         return
     for i in range(1, k + 1):
-        if num.count(i) == 2:
+        if len(num) >= 2 and num[-1] == i and num[-2] == i:
             continue
         num.append(i)
         pick(num)

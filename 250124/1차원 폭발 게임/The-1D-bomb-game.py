@@ -2,7 +2,7 @@ n, m = map(int, input().split())
 bombs = [int(input()) for _ in range(n)]
 flag = True
 
-while flag:
+while flag and len(bombs) > 0:
     new_bombs, temp = [], []
     target = bombs[0]
     flag = False

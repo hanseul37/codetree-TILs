@@ -4,10 +4,10 @@ cnt = 0
 
 for _ in range(k):
     for i in range(n):
-        target = bombs[0][i]
-        new_line, temp = [], []
         flag = 1
         while flag:
+            target = bombs[0][i]
+            new_line, temp = [], []
             flag = 0
             for j in range(n):
                 if bombs[j][i] == target:
@@ -17,16 +17,13 @@ for _ in range(k):
                         new_line += temp
                     temp = [bombs[j][i]]
                     target = bombs[j][i]
-            if len(temp) < m and target is not 0:
+            if len(temp) < m and target != 0:
                 flag = 1
                 new_line += temp
             for j in range(n - len(new_line)):
                 bombs[j][i] = 0
-            for j in range(n - len(new_line), n):
-                bombs[j][i] = new_line[j - n + len(new_line)]
-
-
-
+            for j in range(len(new_line)):
+                bombs[n - len(new_line) + j][i] = new_line[j]
 
     new_bombs = [[0] * n for _ in range(n)]
     for i in range(n):
@@ -58,7 +55,7 @@ for i in range(n):
                     new_line += temp
                 temp = [bombs[j][i]]
                 target = bombs[j][i]
-        if len(temp) < m and target is not 0:
+        if len(temp) < m and target != 0:
             flag = 1
             new_line += temp
         for elem in new_line:

@@ -6,20 +6,27 @@ for _ in range(k):
     for i in range(n):
         target = bombs[0][i]
         new_line, temp = [], []
-        for j in range(n):
-            if bombs[j][i] == target:
-                temp.append(bombs[j][i])
-            else:
-                if len(temp) < m:
-                    new_line += temp
-                temp = [bombs[j][i]]
-                target = bombs[j][i]
-        if len(temp) < m:
-            new_line += temp
-        for j in range(n - len(new_line)):
-            bombs[j][i] = 0
-        for j in range(n - len(new_line), n):
-            bombs[j][i] = new_line[j - n + len(new_line)]
+        flag = 1
+        while flag:
+            flag = 0
+            for j in range(n):
+                if bombs[j][i] == target:
+                    temp.append(bombs[j][i])
+                else:
+                    if len(temp) < m:
+                        new_line += temp
+                    temp = [bombs[j][i]]
+                    target = bombs[j][i]
+            if len(temp) < m and target is not 0:
+                flag = 1
+                new_line += temp
+            for j in range(n - len(new_line)):
+                bombs[j][i] = 0
+            for j in range(n - len(new_line), n):
+                bombs[j][i] = new_line[j - n + len(new_line)]
+
+
+
 
     new_bombs = [[0] * n for _ in range(n)]
     for i in range(n):
@@ -40,19 +47,23 @@ for _ in range(k):
 for i in range(n):
     target = bombs[0][i]
     new_line, temp = [], []
-    for j in range(n):
-        if bombs[j][i] == target:
-            temp.append(bombs[j][i])
-        else:
-            if len(temp) < m:
-                new_line += temp
-            temp = [bombs[j][i]]
-            target = bombs[j][i]
-    if len(temp) < m:
-        new_line += temp
-    for elem in new_line:
-        if elem != 0:
-            cnt += 1
+    flag = 1
+    while flag:
+        flag = 0
+        for j in range(n):
+            if bombs[j][i] == target:
+                temp.append(bombs[j][i])
+            else:
+                if len(temp) < m:
+                    new_line += temp
+                temp = [bombs[j][i]]
+                target = bombs[j][i]
+        if len(temp) < m and target is not 0:
+            flag = 1
+            new_line += temp
+        for elem in new_line:
+            if elem != 0:
+                cnt += 1
 
 print(cnt)
 

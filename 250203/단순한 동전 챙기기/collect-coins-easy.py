@@ -2,7 +2,7 @@ n = int(input())
 arr = [list(input()) for _ in range(n)]
 r1, c1, r2, c2 = -1, -1, -1, -1
 dxs, dys = [0, 1, 0, -1], [-1, 0, 1, 0]
-min_cnt = n * n
+min_cnt = float('inf')
 visited = {}
 
 for i in range(n):
@@ -45,7 +45,7 @@ def find_coin(r, c, cnt, coin, prev_coin):
                 new_prev_coin = int(arr[r + dys[i]][c + dxs[i]])
             find_coin(r + dys[i], c + dxs[i], cnt + 1, new_coin, new_prev_coin)
 find_coin(r1, c1, 0, 0, -1)
-if min_cnt != n * n:
+if min_cnt != float('inf'):
     print(min_cnt)
 else:
     print(-1)

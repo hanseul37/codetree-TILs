@@ -25,14 +25,14 @@ def check(r, c):
 def find_coin(r, c, cnt, coin, prev_coin):
     global min_cnt
 
-    #if r == r2 and c == c2 and coin >= 3:
-        #min_cnt = min(min_cnt, cnt)
-        #return
-
-    if r == r2 and c == c2:
-        if coin >= 3:
-            min_cnt = min(min_cnt, cnt)
+    if r == r2 and c == c2 and coin >= 3:
+        min_cnt = min(min_cnt, cnt)
         return
+
+    #if r == r2 and c == c2:
+        #if coin >= 3:
+            #min_cnt = min(min_cnt, cnt)
+        #return
 
     if (r, c, coin, prev_coin) in visited and visited[(r, c, coin, prev_coin)] <= cnt:
         return

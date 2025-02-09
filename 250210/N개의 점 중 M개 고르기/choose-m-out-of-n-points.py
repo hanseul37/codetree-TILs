@@ -1,11 +1,11 @@
 n, m = map(int, input().split())
 arr = [list(map(int, input().split())) for _ in range(n)]
-min_dist = 200
+min_dist = 20000
 
 
 def choice(points, idx):
     global min_dist
-    
+
     if len(points) >= m:
         for i in range(m - 1):
             for j in range(i + 1, m):

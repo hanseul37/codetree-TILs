@@ -14,7 +14,7 @@ def move():
         min_value = min(min_value, value)
 
     for i in range(1, n):
-        if i not in ans:
+        if i not in ans and arr[ans[-1]][i] != 0:
             ans.append(i)
             move()
             ans.pop()

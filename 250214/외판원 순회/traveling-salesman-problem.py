@@ -7,6 +7,8 @@ def move():
     global min_value
 
     if len(ans) == n:
+        if arr[ans[-1]][0] == 0:
+            return
         value = 0
         for i in range(n - 1):
             value += arr[ans[i]][ans[i + 1]]

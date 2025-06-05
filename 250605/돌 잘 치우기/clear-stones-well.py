@@ -21,22 +21,24 @@ max_visit = 0
 def simul(idx, pick):
     global max_visit
     if len(pick) == m:
+        total = 0
+        visited = [[False] * n for _ in range(n)]
+        q = deque()
         for i in range(k):
-            q  = deque([(r[i], c[i])])
-            visited = [[False] * n for _ in range(n)]
+            q.append((r[i], c[i]))
             visited[r[i]][c[i]] = True
-            cnt = 0          
-            while q:
-                y, x = q.popleft()
-                cnt += 1
-                for dx, dy in zip(dxs, dys):
-                    nx, ny = x + dx, y + dy
-                    if 0 <= nx < n and 0 <= ny < n and visited[ny][nx] == False:
-                        if arr[ny][nx] == 1 and [ny, nx] not in pick:
-                            continue
-                        q.append((ny, nx))
-                        visited[ny][nx] = True
-            max_visit = max(max_visit, cnt)
+        cnt = 0          
+        while q:
+            y, x = q.popleft()
+            cnt += 1
+            for dx, dy in zip(dxs, dys):
+                nx, ny = x + dx, y + dy
+                if 0 <= nx < n and 0 <= ny < n and visited[ny][nx] == False:
+                    if arr[ny][nx] == 1 and [ny, nx] not in pick:
+                        continue
+                    q.append((ny, nx))
+                    visited[ny][nx] = True
+        max_visit = max(max_visit, cnt)
     elif len(stones) > idx:
         pick.append(stones[idx])
         simul(idx + 1, pick)

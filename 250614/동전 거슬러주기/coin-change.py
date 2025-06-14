@@ -8,7 +8,7 @@ for i in range(1, m + 1):
         if i >= coin[j]:
             dp[i] = min(dp[i], dp[i - coin[j]] + 1)
 
-if dp[-1] == 0:
+if dp[-1] == m:
     print(-1)
 else:
     print(dp[-1])

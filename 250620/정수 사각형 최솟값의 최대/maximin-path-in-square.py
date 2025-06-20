@@ -7,6 +7,6 @@ for i in range(1, n):
 
 for i in range(1, n):
     for j in range(1, n):
-        arr[i][j] = min(arr[i - 1][j], arr[i][j - 1])
+        arr[i][j] = min(max(arr[i - 1][j], arr[i][j - 1]), arr[i][j])
 
-print(max(arr[n - 2][n - 1], arr[n - 1][n - 2]))
+print(arr[-1][-1])

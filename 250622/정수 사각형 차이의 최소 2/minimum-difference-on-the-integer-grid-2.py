@@ -11,7 +11,7 @@ for i in range(1, n):
 
 for i in range(1, n):
     for j in range(1, n):
-        if dp[i - 1][j][1] - dp[i - 1][j][0] > dp[i][j - 1][1] - dp[i - 1][j][0]:
+        if dp[i - 1][j][1] - dp[i - 1][j][0] > dp[i][j - 1][1] - dp[i][j - 1][0]:
             dp[i][j][0] = min(dp[i][j - 1][0], arr[i][j])
             dp[i][j][1] = max(dp[i][j - 1][1], arr[i][j])
         else:

@@ -9,8 +9,8 @@ for i in range(1, n):
 for i in range(1, n):
     for j in range(1, n):
         dp[i][j] = min(
-            max(dp[i-1][j], arr[i][j]),
-            max(dp[i][j-1], arr[i][j])
+            max(dp[i - 1][j], arr[i][j]),
+            max(dp[i][j - 1], arr[i][j])
         )
 
 print(dp[-1][-1])

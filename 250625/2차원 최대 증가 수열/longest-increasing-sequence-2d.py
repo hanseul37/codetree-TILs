@@ -8,7 +8,7 @@ for i in range(n):
     for j in range(m):
         for k in range(i + 1, n):
             for l in range(j + 1, m):
-                if arr[i][j] < arr[k][l]:
+                if arr[i][j] < arr[k][l] and dp[i][j] > 0:
                     dp[k][l] = max(dp[k][l], dp[i][j] + 1)
         max_jump = max(dp[i][j], max_jump)
 

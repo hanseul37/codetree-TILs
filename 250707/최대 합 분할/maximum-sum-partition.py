@@ -10,7 +10,7 @@ for num in arr:
             dp[j] += 1
 
 max_sum = 0
-for i in range(1, total):
+for i in range(1, (total // 2) + 1):
     if dp[i] > 1:
         a, c = i, total - i * 2
         if c >= 0 and dp[c]:

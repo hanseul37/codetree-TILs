@@ -8,10 +8,11 @@ for i in range(n):
         if second[j] > first[i]:
             dp[i + 1][j] = max(dp[i + 1][j], dp[i][j])
         elif second[j] < first[i]:
-            dp[i][j + 1] = max(dp[i][j + 1], dp[i][j] + second[j])
+            dp[i][j + 1] = max(dp[i][j + 1], dp[i][j] + second[j])       
         else:
             dp[i + 1][j + 1] = max(dp[i + 1][j + 1], dp[i][j])
-
+        dp[i + 1][j + 1] = max(dp[i + 1][j + 1], dp[i][j])
+        
 max_point = 0
 for i in range(n + 1):
     for j in range(n + 1):

@@ -1,13 +1,13 @@
 n, m = map(int, input().split())
 arr = list(map(int, input().split()))
-dp = [[[-1] * 2 for _ in range(m + 1)] for _ in range(n)]
+dp = [[[-1000 * n] * 2 for _ in range(m + 1)] for _ in range(n)]
 dp[0][1][1] = arr[0]
 dp[0][0][0] = 0
 
 for i in range(n - 1):
     for j in range(m + 1):
         for k in range(2):
-            if dp[i][j][k] == -1:
+            if dp[i][j][k] == -1000 * n:
                 continue
             if k == 0:
                 dp[i + 1][j][k] = max(dp[i][j][k], dp[i + 1][j][k])

@@ -1,3 +1,6 @@
+import sys
+sys.set_int_max_str_digits(1000000)
+
 n = int(input())
 cnt = 0
 for i in range(1, n + 1):

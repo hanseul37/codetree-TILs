@@ -1,22 +1,36 @@
+from collections import defaultdict
+
 n = int(input())
 arr = [list(map(int, input().split())) for _ in range(n)]
-dp = [[set() for _ in range(n)] for _ in range(n)]
-dp[0][0].add((arr[0][0], arr[0][0]))
+dp = [[dict() for _ in range(n)] for _ in range(n)]
+
+dp[0][0][arr[0][0]] = arr[0][0]
 
 for i in range(1, n):
-    for min_value, max_value in dp[i - 1][0]:
-        dp[i][0].add((min(min_value, arr[i][0]), max(max_value, arr[i][0])))
-    for min_value, max_value in dp[0][i - 1]:
-        dp[0][i].add((min(min_value, arr[0][i]), max(max_value, arr[0][i])))
+    for mn, mx in dp[i - 1][0].items():
+        new_min = min(mn, arr[i][0])
+        new_max = max(mx, arr[i][0])
+        diff = new_max - new_min
+        if new_min not in dp[i][0] or dp[i][0][new_min] > new_max:
+            dp[i][0][new_min] = new_max
+    for mn, mx in dp[0][i - 1].items():
+        new_min = min(mn, arr[0][i])
+        new_max = max(mx, arr[0][i])
+        if new_min not in dp[0][i] or dp[0][i][new_min] > new_max:
+            dp[0][i][new_min] = new_max
 
 for i in range(1, n):
     for j in range(1, n):
-        for min_value, max_value in dp[i][j - 1]:
-            dp[i][j].add((min(min_value, arr[i][j]), max(max_value, arr[i][j])))
-        for min_value, max_value in dp[i - 1][j]:
-            dp[i][j].add((min(min_value, arr[i][j]), max(max_value, arr[i][j])))
+        for mn, mx in dp[i][j - 1].items():
+            new_min = min(mn, arr[i][j])
+            new_max = max(mx, arr[i][j])
+            if new_min not in dp[i][j] or dp[i][j][new_min] > new_max:
+                dp[i][j][new_min] = new_max
+        for mn, mx in dp[i - 1][j].items():
+            new_min = min(mn, arr[i][j])
+            new_max = max(mx, arr[i][j])
+            if new_min not in dp[i][j] or dp[i][j][new_min] > new_max:
+                dp[i][j][new_min] = new_max
 
-ans = 200
-for min_value, max_value in dp[-1][-1]:
-    ans = min(max_value - min_value, ans)
+ans = min(mx - mn for mn, mx in dp[-1][-1].items())
 print(ans)

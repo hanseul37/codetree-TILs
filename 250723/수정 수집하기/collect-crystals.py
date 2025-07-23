@@ -7,7 +7,7 @@ if crystal[0] == 'L':
 else:
     dp[1][0][1] = 1
 
-for i in range(n):
+for i in range(1, n):
     for j in range(k + 1):
         for l in range(2):
             curr = -1

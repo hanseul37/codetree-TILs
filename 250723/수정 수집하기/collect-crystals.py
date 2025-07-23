@@ -1,36 +1,28 @@
 n, k = map(int, input().split())
 crystal = input()
+dp = [[[0] * 2 for _ in range(k + 1)] for _ in range(n + 1)]
 
-# dp[i][j][l]: i까지 보고, j번 바꿨고, l==0이면 안 고르는 중, l==1이면 고르는 중
-dp = [[[-1] * 2 for _ in range(k + 1)] for _ in range(n + 1)]
-dp[0][0][0] = 0  # 아무것도 안 고르고 시작
+# 초기 선택 처리: i = 0 에서 시작한 선택은 j 증가 없이 해야 함
+first = 0 if crystal[0] == 'L' else 1
+dp[1][0][first] = 1  # 첫 문자 선택해서 시작
 
-for i in range(n):
+for i in range(1, n):
     curr = 0 if crystal[i] == 'L' else 1
     for j in range(k + 1):
         for l in range(2):
-            if dp[i][j][l] == -1:
-                continue
-
-            # 1. 선택 안 하고 넘어감
+            # 그대로 진행 안 하고 넘기는 경우
             dp[i + 1][j][l] = max(dp[i + 1][j][l], dp[i][j][l])
-
-            if l == 0:
-                # 2. 이전에 안 고르다가 이번에 선택 시작
-                dp[i + 1][j][1] = max(dp[i + 1][j][1], dp[i][j][0] + 1)
+            
+            if l == curr:
+                # 같은 타입이면 그대로 선택
+                dp[i + 1][j][curr] = max(dp[i + 1][j][curr], dp[i][j][l] + 1)
             else:
-                # l == 1: 고르고 있는 중
-                prev_type = 0 if crystal[i - 1] == 'L' else 1 if i > 0 else curr
-                if curr == prev_type:
-                    # 3. 같은 타입 계속 고름
-                    dp[i + 1][j][1] = max(dp[i + 1][j][1], dp[i][j][1] + 1)
-                elif j < k:
-                    # 4. 다른 타입으로 바꾸기
-                    dp[i + 1][j + 1][1] = max(dp[i + 1][j + 1][1], dp[i][j][1] + 1)
+                # 다른 타입이면 전환 필요
+                if j < k:
+                    dp[i + 1][j + 1][curr] = max(dp[i + 1][j + 1][curr], dp[i][j][l] + 1)
 
-# 결과: 마지막까지 봤을 때, 최대 몇 개 고를 수 있는지
-res = 0
+max_crystal = 0
 for j in range(k + 1):
     for l in range(2):
-        res = max(res, dp[n][j][l])
-print(res)
+        max_crystal = max(max_crystal, dp[n][j][l])
+print(max_crystal)

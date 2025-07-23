@@ -5,17 +5,18 @@ dp = [[[0] * 2 for _ in range(k + 1)] for _ in range(n + 1)]
 for i in range(n):
     for j in range(k + 1):
         for l in range(2):
-            dp[i + 1][j][l] = max(dp[i + 1][j][l], dp[i][j][l])
             if crystal[i] == 'L':
                 if l == 0:
                     dp[i + 1][j][l] = max(dp[i][j][l] + 1, dp[i + 1][j][l])
                 else:
+                    dp[i + 1][j][l] = max(dp[i + 1][j][l], dp[i][j][l])
                     if j < k:
                         dp[i + 1][j + 1][0] = max(dp[i][j][l] + 1, dp[i + 1][j + 1][0])
             else:
                 if l == 1:
                     dp[i + 1][j][l] = max(dp[i][j][l] + 1, dp[i + 1][j][l])
                 else:
+                    dp[i + 1][j][l] = max(dp[i + 1][j][l], dp[i][j][l])
                     if j < k:
                         dp[i + 1][j + 1][1] = max(dp[i][j][l] + 1, dp[i + 1][j + 1][1])                
 

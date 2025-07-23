@@ -14,7 +14,6 @@ for i in range(n):
             if l == curr:
                 dp[i + 1][j][curr] = max(dp[i][j][l] + 1, dp[i + 1][j][curr])
             else:
-                #dp[i + 1][j][l] = max(dp[i + 1][j][l], dp[i][j][l])
                 if j < k:
                     dp[i + 1][j + 1][curr] = max(dp[i][j][l] + 1, dp[i + 1][j + 1][curr])             
 

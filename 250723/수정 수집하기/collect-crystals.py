@@ -10,7 +10,7 @@ else:
 for i in range(1, n):
     for j in range(k + 1):
         for l in range(2):
-            if dp[i][j][k] == -1:
+            if dp[i][j][l] == -1:
                 continue
             curr = -1
             if crystal[i] == 'L':

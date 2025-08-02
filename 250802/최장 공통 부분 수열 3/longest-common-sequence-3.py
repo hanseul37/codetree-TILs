@@ -8,8 +8,7 @@ for i in range(1, n + 1):
     for j in range(1, m + 1):
         if a[i - 1] == b[j - 1]:
             length, seq = dp[i - 1][j - 1]
-            seq.append(a[i - 1])
-            dp[i][j] = (length + 1, seq)
+            dp[i][j] = (length + 1, seq + [a[i - 1]])
         else:
             if dp[i - 1][j][0] > dp[i][j - 1][0]:
                 dp[i][j] = dp[i - 1][j]

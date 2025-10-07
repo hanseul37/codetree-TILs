@@ -8,15 +8,15 @@ length = SortedList([[n + 1, 0]], key=lambda x: -x[0])
 for i in range(m):
     idx = num.bisect_left([arr[i], 0]) - 1
     l, r = num[idx]
+    num.pop(idx)
     length.remove([r - l + 1, l])
     if l == arr[i]:
-        num[idx][0] += 1
+        num.add([l + 1, r])
         length.add([r - l, l + 1])
     elif r == arr[i]:
-        num[idx][1] -= 1
+        num.add([l, r - 1])
         length.add([r - l, l])
     else:
-        num.pop(idx)
         num.add([l, arr[i] - 1])
         num.add([arr[i] + 1, r])
         length.add([arr[i] - l, l])

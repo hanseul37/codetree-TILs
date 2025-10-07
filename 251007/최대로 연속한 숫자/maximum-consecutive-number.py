@@ -24,9 +24,14 @@ for val in arr:
             num.add([l, r - 1])
             length.add([r - l, l])
     else:
-        num.add([l, val - 1])
-        num.add([val + 1, r])
-        length.add([val - l, l])
-        length.add([r - val, val + 1])
+        if l <= val - 1:
+            num.add([l, val - 1])
+            length.add([val - l, l])
+        if val + 1 <= r:
+            num.add([val + 1, r])
+            length.add([r - val, val + 1])
 
-    print(length[0][0])
+    if length:
+        print(length[0][0])
+    else:
+        print(0)

@@ -10,7 +10,7 @@ for val in arr:
         print(0)
         continue
 
-    idx = num.bisect_left([val, 0]) - 1
+    idx = num.bisect_right([val, n + 1]) - 1
     l, r = num[idx]
     num.pop(idx)
     length.remove([r - l + 1, l])

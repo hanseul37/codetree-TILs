@@ -5,7 +5,7 @@ for _ in range(m):
     left, right = 0, n - 1
     min_idx, max_idx = n, -1
     while left <= right:
-        mid (left + right) // 2
+        mid = (left + right) // 2
         if arr[mid] > num:
             min_idx = min(min_idx, mid)
             right = mid - 1

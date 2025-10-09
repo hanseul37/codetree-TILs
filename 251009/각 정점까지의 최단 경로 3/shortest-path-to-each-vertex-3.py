@@ -21,6 +21,9 @@ while q:
             heapq.heappush(q, [cost, next_node])
 
 for i in range(1, n):
-    print(distance[i])
+    if distance[i] == float('inf'):
+        print(-1)
+    else:
+        print(distance[i])
 
 

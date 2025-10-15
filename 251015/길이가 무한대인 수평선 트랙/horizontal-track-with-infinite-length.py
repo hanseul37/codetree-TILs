@@ -1,20 +1,14 @@
-from sortedcontainers import SortedList
 n, t = map(int, input().split())
-track = SortedList(key=lambda x: -x[0])
-for _ in range(n):
-    start, speed = map(int, input().split())
-    track.add([start, speed])
+track = [list(map(int, input().split())) for _ in range(n)]
 
 for _ in range(t):
-    last_location, last_speed = float('inf'), 0   
+    last_location = float('inf')
     new_track = []
-    for elem in track:
-        if elem[0] + elem[1] < last_location:
-            new_location = elem[0] + elem[1]
-            new_track.append([new_location, elem[1]])
-            last_location = new_location
-            last_speed = elem[1]
-    track = new_track
+    # 뒤에서부터 순회
+    for start, speed in reversed(track):
+        if start + speed < last_location:
+            new_track.append([start + speed, speed])
+            last_location = start + speed
+    track = list(reversed(new_track))  # 다시 원래 순서로
 
 print(len(track))
-

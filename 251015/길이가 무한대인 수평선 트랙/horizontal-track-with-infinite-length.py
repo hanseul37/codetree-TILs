@@ -6,7 +6,7 @@ for _ in range(n):
     track.add([start, speed])
 
 for _ in range(t):
-    last_location, last_speed = 10 ** 9 + 1, 0   
+    last_location, last_speed = float('inf'), 0   
     new_track = []
     for elem in track:
         if elem[0] + elem[1] < last_location:

@@ -1,14 +1,20 @@
 n, t = map(int, input().split())
-track = [list(map(int, input().split())) for _ in range(n)]
+track = []
+for _ in range(n):
+    start, speed = map(int, input().split())
+    track.append([start, speed])
+track.sort(reverse=True)
 
-for _ in range(t):
-    last_location = float('inf')
-    new_track = []
-    # 뒤에서부터 순회
-    for start, speed in reversed(track):
-        if start + speed < last_location:
-            new_track.append([start + speed, speed])
-            last_location = start + speed
-    track = list(reversed(new_track))  # 다시 원래 순서로
+positions = []
+for elem in track:
+    positions.append(elem[0] + elem[1] * t)
 
-print(len(track))
+last, cnt = float('inf'), 0
+for elem in positions:
+    if last > elem:
+        cnt += 1
+        last = elem
+
+print(cnt)
+
+

@@ -10,7 +10,7 @@ for q in query:
             right = mid - 1
         else:
             left = mid + 1
-    if arr[left] == q:
+    if left < n and arr[left] == q:
         print(left + 1)
     else:
         print(-1)

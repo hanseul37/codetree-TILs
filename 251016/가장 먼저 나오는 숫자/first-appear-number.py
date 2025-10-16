@@ -3,9 +3,8 @@ arr = list(map(int, input().split()))
 query = list(map(int, input().split()))
 
 for q in query:
-    left, right = 0, n
+    left, right = 0, n - 1
     while left <= right:
-        flag = False
         mid = (left + right) // 2
         if arr[mid] >= q:
             right = mid - 1

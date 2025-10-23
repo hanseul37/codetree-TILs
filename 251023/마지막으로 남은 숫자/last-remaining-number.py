@@ -9,7 +9,8 @@ for elem in arr:
 while len(pq) >= 2:
     num1 = -heapq.heappop(pq)
     num2 = -heapq.heappop(pq)
-    heapq.heappush(pq, -(num1 - num2))
+    if num1 != num2:
+        heapq.heappush(pq, -(num1 - num2))
 
 if pq:
     print(-heapq.heappop(pq))

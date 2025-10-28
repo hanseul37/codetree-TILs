@@ -8,10 +8,10 @@ for i in range(n):
     if i <= 1:
         print(-1)
     else:
-        ans = 1
-        min3 = heapq.nsmallest(3, pq)
-        for elem in min3:
-            ans *= elem
-        print(ans)
-
-
+        first = heapq.heappop(pq)
+        second = heapq.heappop(pq)
+        third = heapq.heappop(pq)
+        heapq.heappush(pq, first)
+        heapq.heappush(pq, second)
+        heapq.heappush(pq, third)
+        print(first * second * third)

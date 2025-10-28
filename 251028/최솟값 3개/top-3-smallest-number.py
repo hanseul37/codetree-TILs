@@ -9,9 +9,9 @@ for i in range(n):
         print(-1)
     else:
         ans = 1
-        arr_copy = arr[:i + 1]
-        for _ in range(3):
-            ans *= heapq.heappop(arr_copy)
+        min3 = heapq.nsmallest(3, pq)
+        for elem in min3:
+            ans *= elem
         print(ans)
 
 

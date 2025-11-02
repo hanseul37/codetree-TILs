@@ -18,14 +18,14 @@ for _ in range(q):
         node[query[1]].prev = None
         node[query[1]].next = None
     elif query[0] == 2:
-        i_node, j_node = node[query[1]], node[query[1]]
+        i_node, j_node = node[query[1]], node[query[2]]
         if i_node.prev:
             i_node.prev.next = j_node
             j_node.prev = i_node.prev
         j_node.next = i_node
         i_node.prev = j_node
     elif query[0] == 3:
-        i_node, j_node = node[query[1]], node[query[1]]
+        i_node, j_node = node[query[1]], node[query[2]]
         if i_node.next:
             i_node.next.prev = j_node
             j_node.next = i_node.next

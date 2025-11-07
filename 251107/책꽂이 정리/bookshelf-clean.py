@@ -19,7 +19,9 @@ for _ in range(q):
     elif op == 3:
         if i == j: 
             continue
-        arr[j].extendleft(reversed(arr[i]))
+        tmp = list(arr[i])
+        tmp.reverse()
+        arr[j].extendleft(tmp)
         arr[i].clear()
     elif op == 4:
         if i == j: 
@@ -28,7 +30,7 @@ for _ in range(q):
         arr[i].clear()
 
 for i in range(k):
-    print(len(arr[i]), end = ' ')
+    print(len(arr[i]), end=' ')
     for elem in arr[i]:
-        print(elem, end = ' ')
+        print(elem, end=' ')
     print()

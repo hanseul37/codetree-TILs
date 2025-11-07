@@ -1,34 +1,37 @@
 import sys
 input = sys.stdin.readline
-from collections import defaultdict
 
 n, k = map(int, input().split())
 q = int(input())
 
-# 각 노드의 prev, next, 현재 큐 번호
+# 링크드 리스트용 배열
 prev = [0] * (n + 1)
 nxt = [0] * (n + 1)
-belong = [0] * (n + 1)
 
 # 각 큐의 head, tail
 head = [0] * k
 tail = [0] * k
 
-# 초기 상태: 모두 1번 큐에
+# 초기화: 모든 원소는 1번 큐에 순서대로 연결
 for i in range(1, n + 1):
-    belong[i] = 0  # 0번째 큐
     if i > 1:
         prev[i] = i - 1
         nxt[i - 1] = i
-head[0] = 1
-tail[0] = n
+head[0], tail[0] = 1, n
 
+# 나머지 큐는 비어 있음
+for i in range(1, k):
+    head[i] = tail[i] = 0
+
+# 연산 처리
 for _ in range(q):
     op, i, j = map(int, input().split())
     i -= 1
     j -= 1
-    if op == 1:  # i의 앞 -> j의 뒤
-        if head[i] == 0:
+
+    # 1. i의 맨 앞을 j의 뒤로
+    if op == 1:
+        if not head[i]:
             continue
         x = head[i]
         head[i] = nxt[x]
@@ -44,10 +47,10 @@ for _ in range(q):
             head[j] = x
         tail[j] = x
         nxt[x] = 0
-        belong[x] = j
 
-    elif op == 2:  # i의 뒤 -> j의 앞
-        if tail[i] == 0:
+    # 2. i의 맨 뒤를 j의 앞으로
+    elif op == 2:
+        if not tail[i]:
             continue
         x = tail[i]
         tail[i] = prev[x]
@@ -63,42 +66,35 @@ for _ in range(q):
             tail[j] = x
         head[j] = x
         prev[x] = 0
-        belong[x] = j
 
-    elif op == 3:  # i -> j (앞에서 뒤로 연결)
-        if i == j or head[i] == 0:
+    # 3. i 전체를 j의 앞으로
+    elif op == 3:
+        if i == j or not head[i]:
             continue
-        if head[j] == 0:
-            head[j], tail[j] = head[i], tail[i]
-        else:
+        nxt[tail[i]] = head[j]
+        if head[j]:
             prev[head[j]] = tail[i]
-            nxt[tail[i]] = head[j]
-            head[j] = head[i]
-        cur = head[i]
-        while cur:
-            belong[cur] = j
-            cur = nxt[cur]
+        else:
+            tail[j] = tail[i]
+        head[j] = head[i]
         head[i] = tail[i] = 0
 
-    elif op == 4:  # i -> j (뒤에서 뒤로 연결)
-        if i == j or head[i] == 0:
+    # 4. i 전체를 j의 뒤로
+    elif op == 4:
+        if i == j or not head[i]:
             continue
-        if tail[j] == 0:
-            head[j], tail[j] = head[i], tail[i]
-        else:
+        prev[head[i]] = tail[j]
+        if tail[j]:
             nxt[tail[j]] = head[i]
-            prev[head[i]] = tail[j]
-            tail[j] = tail[i]
-        cur = head[i]
-        while cur:
-            belong[cur] = j
-            cur = nxt[cur]
+        else:
+            head[j] = head[i]
+        tail[j] = tail[i]
         head[i] = tail[i] = 0
 
 # 출력
 for i in range(k):
-    res = []
     cur = head[i]
+    res = []
     while cur:
         res.append(cur)
         cur = nxt[cur]

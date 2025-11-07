@@ -19,12 +19,12 @@ for _ in range(q):
     elif op == 3:
         if i == j: 
             continue
-        arr[j] = arr[i] + arr[j]
+        arr[j].extendleft(reversed(arr[i]))
         arr[i].clear()
     elif op == 4:
         if i == j: 
             continue
-        arr[j] = arr[j] + arr[i]
+        arr[j].extend(arr[i])
         arr[i].clear()
 
 for i in range(k):

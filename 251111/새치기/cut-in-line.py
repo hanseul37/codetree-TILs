@@ -43,13 +43,15 @@ for _ in range(q):
         if not b.prev:
             change_head(b.data, a.data)
         if not a.prev:
-            change_head(a.data, -1)
+            new_head_data = a.next.data if a.next else -1
+            change_head(a.data, new_head_data)
         disconnect(a, a)
         connect(b.prev, b, a, a)
     elif op[0] == 2:
         a = arr[op[1]]
         if not a.prev:
-            change_head(a.data, -1)
+            new_head_data = a.next.data if a.next else -1
+            change_head(a.data, new_head_data)
         disconnect(a, a)
         del arr[a.data]
     elif op[0] == 3:
@@ -57,7 +59,8 @@ for _ in range(q):
         if not c.prev:
             change_head(c.data, a.data)
         if not a.prev:
-            change_head(a.data, -1)
+            new_head_data = b.next.data if b.next else -1
+            change_head(a.data, new_head_data)
         disconnect(a, b)   
         connect(c.prev, c, a, b)        
 

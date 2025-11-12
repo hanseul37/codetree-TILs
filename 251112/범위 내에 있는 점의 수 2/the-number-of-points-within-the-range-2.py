@@ -9,5 +9,8 @@ for i in range(1000001):
     prefix[i] = cnt
 
 for _ in range(q):
-    s, e = map(int, input().split())
-    print(prefix[e] - prefix[s - 1])
+    a, b = map(int, input().split())
+    if a == 0:
+        print(prefix[b])
+    else:
+        print(prefix[b] - prefix[a - 1])

@@ -28,7 +28,7 @@ for _ in range(q):
         b_prev.next = a_next
         circle[circle_a][a].next = circle[circle_b][b]
         circle[circle_b][b].prev = circle[circle_a][a]
-        for student in circle[circle_b]:
+        for student in list(circle[circle_b].keys()):
             circle_id[student] = circle_a
             circle[circle_a][student] = circle[circle_b][student]
         circle[circle_b] = {}

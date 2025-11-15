@@ -28,13 +28,15 @@ for _ in range(q):
         b_prev.next = a_next
         circle[circle_a][a].next = circle[circle_b][b]
         circle[circle_b][b].prev = circle[circle_a][a]
-        for student in list(circle[circle_b].keys()):
+        for student in circle[circle_b]:
             circle_id[student] = circle_a
             circle[circle_a][student] = circle[circle_b][student]
         circle[circle_b] = {}
     
     elif op[0] == 2:
         a, b = op[1], op[2]
+        if circle_id[a] != circle_id[b]:
+            continue
         circle_idx = circle_id[a]
         a_prev, b_prev = circle[circle_idx][a].prev, circle[circle_idx][b].prev
         a_prev.next = circle[circle_idx][b]

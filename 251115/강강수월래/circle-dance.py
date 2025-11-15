@@ -20,18 +20,30 @@ for _ in range(q):
     op = list(map(int, input().split()))
     if op[0] == 1:
         a, b = op[1], op[2]
-        circle_a, circle_b = circle_id[a], circle_id[b]
-        if circle_a == circle_b:
+        if a not in circle_id or b not in circle_id:
             continue
-        a_next, b_prev = circle[circle_a][a].next, circle[circle_b][b].prev
+        circle_a_idx, circle_b_idx = circle_id[a], circle_id[b]
+        if circle_a_idx == circle_b_idx:
+            continue
+
+        if len(circle[circle_a_idx]) < len(circle[circle_b_idx]):
+            a, b = b, a
+            circle_a_idx, circle_b_idx = circle_b_idx, circle_a_idx
+
+        a_next = circle[circle_a_idx][a].next
+        b_prev = circle[circle_b_idx][b].prev
+
         a_next.prev = b_prev
         b_prev.next = a_next
-        circle[circle_a][a].next = circle[circle_b][b]
-        circle[circle_b][b].prev = circle[circle_a][a]
-        for student in circle[circle_b]:
-            circle_id[student] = circle_a
-            circle[circle_a][student] = circle[circle_b][student]
-        circle[circle_b] = {}
+
+        circle[circle_a_idx][a].next = circle[circle_b_idx][b]
+        circle[circle_b_idx][b].prev = circle[circle_a_idx][a]
+
+        for student in circle[circle_b_idx]:
+            circle_id[student] = circle_a_idx
+        
+        circle[circle_a_idx].update(circle[circle_b_idx])
+        circle[circle_b_idx] = {}
     
     elif op[0] == 2:
         a, b = op[1], op[2]

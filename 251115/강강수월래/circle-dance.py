@@ -21,15 +21,17 @@ for _ in range(q):
     if op[0] == 1:
         a, b = op[1], op[2]
         circle_a, circle_b = circle_id[a], circle_id[b]
+
         a_next, b_prev = circle[circle_a][a].next, circle[circle_b][b].prev
         a_next.prev = b_prev
         b_prev.next = a_next
         circle[circle_a][a].next = circle[circle_b][b]
         circle[circle_b][b].prev = circle[circle_a][a]
-        for student in circle[circle_b]:
-            circle_id[student] = circle_a
-            circle[circle_a][student] = circle[circle_b][student]
-        circle[circle_b] = {}
+        if circle_a != circle_b:
+            for student in circle[circle_b]:
+                circle_id[student] = circle_a
+                circle[circle_a][student] = circle[circle_b][student]
+            circle[circle_b] = {}
     
     elif op[0] == 2:
         a, b = op[1], op[2]

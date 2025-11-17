@@ -20,18 +20,34 @@ for _ in range(q):
     op = list(map(int, input().split()))
     if op[0] == 1:
         a, b = op[1], op[2]
-        circle_a, circle_b = circle_id[a], circle_id[b]
-        if circle_a == circle_b:
+        circle_a_idx, circle_b_idx = circle_id[a], circle_id[b]
+        if circle_a_idx == circle_b_idx:
             continue
-        a_next, b_prev = circle[circle_a][a].next, circle[circle_b][b].prev
+
+        # 포인터 연결 로직은 a, b를 그대로 사용해야 합니다.
+        a_node = circle[circle_a_idx][a]
+        b_node = circle[circle_b_idx][b]
+        a_next, b_prev = a_node.next, b_node.prev
+
         a_next.prev = b_prev
         b_prev.next = a_next
-        circle[circle_a][a].next = circle[circle_b][b]
-        circle[circle_b][b].prev = circle[circle_a][a]
-        for student in circle[circle_b]:
-            circle_id[student] = circle_a
-            circle[circle_a][student] = circle[circle_b][student]
-        circle[circle_b] = {}
+        a_node.next = b_node
+        b_node.prev = a_node
+
+        # 데이터 이동 시에만 크기 비교를 사용합니다.
+        # 작은 그룹을 큰 그룹으로 합칩니다.
+        if len(circle[circle_a_idx]) < len(circle[circle_b_idx]):
+            # a의 그룹이 더 작으므로, a 그룹의 학생들을 b 그룹으로 옮깁니다.
+            for student, node in circle[circle_a_idx].items():
+                circle_id[student] = circle_b_idx
+                circle[circle_b_idx][student] = node
+            circle[circle_a_idx] = {}
+        else:
+            # b의 그룹이 더 작거나 같으므로, b 그룹의 학생들을 a 그룹으로 옮깁니다.
+            for student, node in circle[circle_b_idx].items():
+                circle_id[student] = circle_a_idx
+                circle[circle_a_idx][student] = node
+            circle[circle_b_idx] = {}
     
     elif op[0] == 2:
         a, b = op[1], op[2]

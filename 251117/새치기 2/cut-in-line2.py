@@ -17,11 +17,8 @@ def disconnect(start, end):
         start.prev.next = end.next
     if end.next:
         end.next.prev = start.prev
-
-def change_head(original_head, new_head):
-    for i in range(m):
-        if head[i] == original_head:
-            head[i] = new_head
+    start.prev = None
+    end.next = None
 
 n, m, q = map(int, input().split())
 names = list(input().split())
@@ -39,29 +36,69 @@ for _ in range(q):
     op = list(input().split())
     if op[0] == '1':
         a, b = arr[op[1]], arr[op[2]]
-        if not b.prev:
-            change_head(b.data, a.data)
-        if not a.prev:
-            new_head_data = a.next.data if a.next else -1
-            change_head(a.data, new_head_data)
+        
+        a_was_head = (a.prev is None)
+        b_was_head = (b.prev is None)
+        
+        new_head_for_a_list = a.next.data if a.next else -1
+        
+        a_list_idx, b_list_idx = -1, -1
+        for i in range(m):
+            if head[i] == a.data:
+                a_list_idx = i
+            elif head[i] == b.data:
+                b_list_idx = i
+
+        b_prev_node = b.prev
         disconnect(a, a)
-        connect(b.prev, b, a, a)
+        connect(b_prev_node, b, a, a)
+
+        if a_was_head and a_list_idx != -1:
+            head[a_list_idx] = new_head_for_a_list
+        if b_was_head and b_list_idx != -1:
+            head[b_list_idx] = a.data
+
     elif op[0] == '2':
         a = arr[op[1]]
-        if not a.prev:
-            new_head_data = a.next.data if a.next else -1
-            change_head(a.data, new_head_data)
+        a_was_head = (a.prev is None)
+        new_head_for_a_list = a.next.data if a.next else -1
+        
+        a_list_idx = -1
+        if a_was_head:
+            for i in range(m):
+                if head[i] == a.data:
+                    a_list_idx = i
+                    break
+        
         disconnect(a, a)
         del arr[a.data]
+
+        if a_was_head and a_list_idx != -1:
+            head[a_list_idx] = new_head_for_a_list
+
     elif op[0] == '3':
         a, b, c = arr[op[1]], arr[op[2]], arr[op[3]]
-        if not c.prev:
-            change_head(c.data, a.data)
-        if not a.prev:
-            new_head_data = b.next.data if b.next else -1
-            change_head(a.data, new_head_data)
-        disconnect(a, b)   
-        connect(c.prev, c, a, b)        
+
+        a_was_head = (a.prev is None)
+        c_was_head = (c.prev is None)
+
+        new_head_for_a_list = b.next.data if b.next else -1
+
+        a_list_idx, c_list_idx = -1, -1
+        for i in range(m):
+            if head[i] == a.data:
+                a_list_idx = i
+            elif head[i] == c.data:
+                c_list_idx = i
+        
+        c_prev_node = c.prev
+        disconnect(a, b)
+        connect(c_prev_node, c, a, b)
+
+        if a_was_head and a_list_idx != -1:
+            head[a_list_idx] = new_head_for_a_list
+        if c_was_head and c_list_idx != -1:
+            head[c_list_idx] = a.data
 
 for i in range(m):
     point = head[i]

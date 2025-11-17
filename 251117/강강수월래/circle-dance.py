@@ -5,113 +5,142 @@ class Node:
         self.next = None
 
 n, m, q = map(int, input().split())
-circle, circle_id = [], {}
-circle_min_student = []  # 각 그룹의 최솟값을 저장
 
-# 초기화
+circle = []
+circle_id = {}
+
+# 원을 대표 노드만 저장하는 방식으로 생성
 for i in range(m):
     circle_len, *points = map(int, input().split())
-    students = {st:Node(st) for st in points}
+    nodes = {p: Node(p) for p in points}
+
+    # 원형 연결
     for j in range(circle_len):
-        students[points[j]].prev = students[points[j - 1]]
-        students[points[j - 1]].next = students[points[j]]
-    circle.append(students)
-    circle_min_student.append(min(points))  # 그룹의 최솟값 저장
+        a = points[j]
+        b = points[(j + 1) % circle_len]
+        nodes[a].next = nodes[b]
+        nodes[b].prev = nodes[a]
+
+    # 대표(head) 집어넣기
+    head = nodes[points[0]]
+    circle.append(head)
+
+    # circle_id 등록
     for st in points:
         circle_id[st] = i
 
+
+# node에 접근하는 방법: circle_id → head → 순회
+def find_node(head, target):
+    cur = head
+    while True:
+        if cur.data == target:
+            return cur
+        cur = cur.next
+
+
 for _ in range(q):
     op = list(map(int, input().split()))
-    
-    # 1. 그룹 병합
+
+    # ------------------------------------------------
+    # 1번: 두 원을 연결 (합치기)
+    # ------------------------------------------------
     if op[0] == 1:
         a, b = op[1], op[2]
-        circle_a_idx, circle_b_idx = circle_id[a], circle_id[b]
-        if circle_a_idx == circle_b_idx:
+        ca, cb = circle_id[a], circle_id[b]
+
+        if ca == cb:
             continue
 
-        a_node = circle[circle_a_idx][a]
-        b_node = circle[circle_b_idx][b]
-        a_next, b_prev = a_node.next, b_node.prev
+        head_a = circle[ca]
+        head_b = circle[cb]
+
+        node_a = find_node(head_a, a)
+        node_b = find_node(head_b, b)
+
+        # a next / b prev 조작
+        a_next = node_a.next
+        b_prev = node_b.prev
 
         a_next.prev = b_prev
         b_prev.next = a_next
-        a_node.next = b_node
-        b_node.prev = a_node
 
-        if len(circle[circle_a_idx]) < len(circle[circle_b_idx]):
-            # a 그룹이 더 작으면 b 그룹으로 합병
-            new_min = min(circle_min_student[circle_a_idx], circle_min_student[circle_b_idx])
-            circle_min_student[circle_b_idx] = new_min
-            
-            for student, node in circle[circle_a_idx].items():
-                circle_id[student] = circle_b_idx
-                circle[circle_b_idx][student] = node
-            circle[circle_a_idx] = {}
-            circle_min_student[circle_a_idx] = None
-        else:
-            # b 그룹이 더 작거나 같으면 a 그룹으로 합병
-            new_min = min(circle_min_student[circle_a_idx], circle_min_student[circle_b_idx])
-            circle_min_student[circle_a_idx] = new_min
+        node_a.next = node_b
+        node_b.prev = node_a
 
-            for student, node in circle[circle_b_idx].items():
-                circle_id[student] = circle_a_idx
-                circle[circle_a_idx][student] = node
-            circle[circle_b_idx] = {}
-            circle_min_student[circle_b_idx] = None
+        # b 원의 모든 학생의 circle_id 를 ca로 변경
+        cur = head_b
+        while True:
+            circle_id[cur.data] = ca
+            cur = cur.next
+            if cur == head_b:
+                break
 
-    # 2. 그룹 분리
+        # cb 원은 사용하지 않음 (head를 None 처리)
+        circle[cb] = None
+
+
+    # ------------------------------------------------
+    # 2번: 한 원을 두 개로 분리
+    # ------------------------------------------------
     elif op[0] == 2:
         a, b = op[1], op[2]
         if circle_id[a] != circle_id[b]:
             continue
-        circle_idx = circle_id[a]
-        
-        a_prev, b_prev = circle[circle_idx][a].prev, circle[circle_idx][b].prev
-        a_prev.next = circle[circle_idx][b]
-        b_prev.next = circle[circle_idx][a]
-        circle[circle_idx][a].prev = b_prev
-        circle[circle_idx][b].prev = a_prev
 
-        # b를 포함하는 새로운 그룹 생성
-        new_circle = {}
-        new_circle_min = float('inf')
-        cur = circle[circle_idx][b]
+        cidx = circle_id[a]
+        head = circle[cidx]
+
+        node_a = find_node(head, a)
+        node_b = find_node(head, b)
+
+        # cut
+        a_prev = node_a.prev
+        b_prev = node_b.prev
+
+        a_prev.next = node_b
+        node_b.prev = a_prev
+
+        b_prev.next = node_a
+        node_a.prev = b_prev
+
+        # b가 새로운 헤드
+        new_head = node_b
+        circle.append(new_head)
+        new_idx = len(circle) - 1
+
+        # new circle의 circle_id 업데이트
+        cur = new_head
         while True:
-            new_circle[cur.data] = cur
-            new_circle_min = min(new_circle_min, cur.data)
-            circle_id[cur.data] = len(circle)
+            circle_id[cur.data] = new_idx
             cur = cur.next
-            if cur == circle[circle_idx][b]:
+            if cur == new_head:
                 break
-        
-        circle.append(new_circle)
-        circle_min_student.append(new_circle_min)
 
-        # 기존 그룹에서 new_circle의 학생들 삭제
-        for student in new_circle:
-            del circle[circle_idx][student]
-        
-        # 기존 그룹에 학생이 남아있으면 최솟값 재계산
-        if circle[circle_idx]:
-             circle_min_student[circle_idx] = min(circle[circle_idx].keys())
-        else:
-             circle_min_student[circle_idx] = None
 
-    # 3. 그룹 출력
+    # ------------------------------------------------
+    # 3번: 출력
+    # ------------------------------------------------
     elif op[0] == 3:
         a = op[1]
-        circle_idx = circle_id[a]
-        if not circle[circle_idx]: continue
+        cidx = circle_id[a]
+        head = circle[cidx]
 
-        # 저장된 최솟값을 O(1)에 가져옴
-        min_student = circle_min_student[circle_idx]
-        cur = circle[circle_idx][min_student]
-        
-        output = []
+        # 최소값 찾기
+        cur = head
+        mn = head.data
         while True:
-            output.append(str(cur.data))
-            cur = cur.prev
-            if cur == circle[circle_idx][min_student]:
+            mn = min(mn, cur.data)
+            cur = cur.next
+            if cur == head:
                 break
-        print(' '.join(output))
+
+        # 최소값에서 prev방향 출력
+        start = find_node(head, mn)
+        cur = start
+        while True:
+            print(cur.data, end=' ')
+            cur = cur.prev
+            if cur == start:
+                break
+        print()

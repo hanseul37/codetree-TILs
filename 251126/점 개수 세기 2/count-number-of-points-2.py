@@ -20,23 +20,25 @@ for _ in range(q):
 
 x_point = sorted(set(x_point))
 y_point = sorted(set(y_point))
-x_len, y_len = len(x_point), len(y_point)
-arr = [[0] * (x_len + 2) for _ in range(y_len + 2)]
+point_dict = {}
 for x, y in points:
-    arr[bisect_left(y_point, y) + 1][bisect_left(x_point, x) + 1] = 1
+    xi = bisect_left(x_point, x)
+    yi = bisect_left(y_point, y)
+    if (yi, xi) not in point_dict:
+        point_dict[(yi, xi)] = 0
+    point_dict[(yi, xi)] += 1
 
-prefix = [[0] * (x_len + 2) for _ in range(y_len + 2)]
-for i in range(1, y_len + 1):
-    for j in range(1, x_len + 1):
-        prefix[i][j] = prefix[i - 1][j] + prefix[i][j - 1] - prefix[i - 1][j - 1] + arr[i][j]
-        
 for x1, y1, x2, y2 in queries:
-    a = bisect_left(x_point, x1) + 1
-    b = bisect_left(y_point, y1) + 1
-    c = bisect_left(x_point, x2) + 1
-    d = bisect_left(y_point, y2) + 1
+    a = bisect_left(x_point, x1)
+    b = bisect_left(y_point, y1)
+    c = bisect_left(x_point, x2)
+    d = bisect_left(y_point, y2)
     if a > c: 
         a, c = c, a
     if b > d: 
         b, d = d, b
-    print(prefix[d][c] - prefix[b - 1][c] - prefix[d][a - 1] + prefix[b - 1][a - 1])
+    ans = 0
+    for (yi, xi), cnt in point_dict.items():
+        if b <= yi <= d and a <= xi <= c:
+            ans += cnt
+    print(ans)

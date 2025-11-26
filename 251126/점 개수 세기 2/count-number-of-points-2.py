@@ -21,11 +21,11 @@ for _ in range(q):
 x_point = sorted(set(x_point))
 y_point = sorted(set(y_point))
 x_len, y_len = len(x_point), len(y_point)
-arr = [[0] * (x_len + 1) for _ in range(y_len + 1)]
+arr = [[0] * (x_len + 2) for _ in range(y_len + 2)]
 for x, y in points:
     arr[bisect_left(y_point, y) + 1][bisect_left(x_point, x) + 1] = 1
 
-prefix = [[0] * (x_len + 1) for _ in range(y_len + 1)]
+prefix = [[0] * (x_len + 2) for _ in range(y_len + 2)]
 for i in range(1, y_len + 1):
     for j in range(1, x_len + 1):
         prefix[i][j] = prefix[i - 1][j] + prefix[i][j - 1] - prefix[i - 1][j - 1] + arr[i][j]

@@ -1,4 +1,5 @@
-from bisect import bisect_left
+from bisect import bisect_left, bisect_right
+from collections import defaultdict
 
 n, q = map(int, input().split())
 points = []
@@ -20,22 +21,28 @@ for _ in range(q):
 
 x_point = sorted(set(x_point))
 y_point = sorted(set(y_point))
-x_len, y_len = len(x_point), len(y_point)
-arr = [[0] * (x_len + 1) for _ in range(y_len + 1)]
+point_dict = defaultdict(list)
 for x, y in points:
-    arr[bisect_left(y_point, y) + 1][bisect_left(x_point, x) + 1] = 1
+    point_dict[bisect_left(y_point, y)].append(bisect_left(x_point, x))
 
-for i in range(1, y_len + 1):
-    for j in range(1, x_len + 1):
-        arr[i][j] += arr[i - 1][j] + arr[i][j - 1] - arr[i - 1][j - 1]
-        
+for xi in point_dict.values():
+    xi.sort()
+
 for x1, y1, x2, y2 in queries:
-    a = bisect_left(x_point, x1) + 1
-    b = bisect_left(y_point, y1) + 1
-    c = bisect_left(x_point, x2) + 1
-    d = bisect_left(y_point, y2) + 1
-    if a > c: 
-        a, c = c, a
-    if b > d: 
-        b, d = d, b
-    print(arr[d][c] - arr[b - 1][c] - arr[d][a - 1] + arr[b - 1][a - 1])
+    a = bisect_left(x_point, min(x1, x2))
+    c = bisect_right(x_point, max(x1, x2)) - 1
+    b = bisect_left(y_point, min(y1, y2))
+    d = bisect_right(y_point, max(y1, y2)) - 1
+
+    ans = 0
+    for yi in range(b, d + 1):
+        xi_list = point_dict.get(yi, [])
+        if not xi_list:
+            continue
+        ans += bisect_right(xi_list, c) - bisect_left(xi_list, a)
+    print(ans)
+
+
+
+
+

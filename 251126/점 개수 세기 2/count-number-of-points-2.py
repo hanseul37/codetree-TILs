@@ -1,94 +1,105 @@
 import sys
 
-# 빠른 입력을 위해 sys.stdin.readline 사용
-input = sys.stdin.readline
+class FenwickTree:
+    """ 펜윅 트리 (이진 인덱스 트리) """
+    def __init__(self, size):
+        self.tree = [0] * (size + 1)
+    
+    def add(self, i, delta):
+        """ i번 인덱스에 delta 값을 더함 (0-based index) """
+        i += 1  # 1-based로 변환
+        while i < len(self.tree):
+            self.tree[i] += delta
+            i += i & (-i)
+            
+    def query(self, i):
+        """ 0부터 i번 인덱스까지의 누적 합을 구함 (0-based index) """
+        i += 1  # 1-based로 변환
+        s = 0
+        while i > 0:
+            s += self.tree[i]
+            i -= i & (-i)
+        return s
+
+    def query_range(self, i, j):
+        """ i부터 j번 인덱스까지의 구간 합을 구함 (0-based indices) """
+        if i > j:
+            return 0
+        res = self.query(j)
+        if i > 0:
+            res -= self.query(i - 1)
+        return res
 
 def solve():
+    """ 스윕 라인 알고리즘으로 문제 해결 """
+    input = sys.stdin.readline
     try:
-        # n: 점의 수, q: 쿼리의 수
-        n_str, q_str = input().split()
-        if not n_str or not q_str: return
-        n, q = int(n_str), int(q_str)
+        line = input()
+        if not line.strip(): return
+        n, q = map(int, line.split())
     except (IOError, ValueError):
         return
 
     points = []
-    all_x = []
     all_y = []
-
-    # 점 좌표 입력
+    
     for _ in range(n):
-        try:
-            x, y = map(int, input().split())
-            points.append((x, y))
-            all_x.append(x)
-            all_y.append(y)
-        except (IOError, ValueError):
-            continue
-
-    # 쿼리 좌표 입력
+        x, y = map(int, input().split())
+        points.append((x, y))
+        all_y.append(y)
+    
     queries = []
-    for _ in range(q):
-        try:
-            x1, y1, x2, y2 = map(int, input().split())
-            queries.append((x1, y1, x2, y2))
-            all_x.append(x1)
-            all_x.append(x2)
-            all_y.append(y1)
-            all_y.append(y2)
-        except (IOError, ValueError):
-            continue
-
-    # 좌표 압축
-    unique_x = sorted(list(set(all_x)))
-    unique_y = sorted(list(set(all_y)))
+    for i in range(q):
+        x1, y1, x2, y2 = map(int, input().split())
+        queries.append((x1, y1, x2, y2, i))
+        all_y.append(y1)
+        all_y.append(y2)
     
-    x_map = {coord: i for i, coord in enumerate(unique_x)}
-    y_map = {coord: i for i, coord in enumerate(unique_y)}
-    
-    rows = len(unique_y)
-    cols = len(unique_x)
-    
-    if rows == 0 or cols == 0:
-        for _ in range(len(queries)):
+    if not all_y:
+        for _ in range(q):
             print(0)
         return
 
-    # 2D 그리드에 점 개수 기록
-    grid = [[0] * cols for _ in range(rows)]
+    # Y좌표 압축
+    unique_y = sorted(list(set(all_y)))
+    y_map = {coord: i for i, coord in enumerate(unique_y)}
+    m = len(unique_y)
+    
+    events = []
+    # 이벤트 타입: 0=쿼리 시작, 1=점, 2=쿼리 끝 (정렬 순서에 중요)
+    
     for x, y in points:
-        if x in x_map and y in y_map:
-            xi = x_map[x]
-            yi = y_map[y]
-            grid[yi][xi] += 1
+        events.append((x, 1, y_map[y]))
             
-    # 2D 누적 합 배열 생성 (계산 편의를 위해 1-based 인덱싱)
-    prefix_sum = [[0] * (cols + 1) for _ in range(rows + 1)]
-    for i in range(rows):
-        for j in range(cols):
-            prefix_sum[i+1][j+1] = grid[i][j] + prefix_sum[i][j+1] + prefix_sum[i+1][j] - prefix_sum[i][j]
-
-    # 쿼리 처리
-    for x1, y1, x2, y2 in queries:
+    for x1, y1, x2, y2, i in queries:
         _x1, _x2 = min(x1, x2), max(x1, x2)
         _y1, _y2 = min(y1, y2), max(y1, y2)
+        
+        y1_idx = y_map[_y1]
+        y2_idx = y_map[_y2]
+        
+        events.append((_x1, 0, y1_idx, y2_idx, i))
+        events.append((_x2, 2, y1_idx, y2_idx, i))
+    
+    events.sort()
+    
+    answers = [0] * q
+    bit = FenwickTree(m)
+    
+    for event in events:
+        x, type = event[0], event[1]
+        
+        if type == 1:  # 점 이벤트
+            _, _, y_idx = event
+            bit.add(y_idx, 1)
+        elif type == 0:  # 쿼리 시작 이벤트
+            _, _, y1_idx, y2_idx, q_idx = event
+            answers[q_idx] -= bit.query_range(y1_idx, y2_idx)
+        else:  # 쿼리 끝 이벤트
+            _, _, y1_idx, y2_idx, q_idx = event
+            answers[q_idx] += bit.query_range(y1_idx, y2_idx)
 
-        # 쿼리 좌표가 압축된 좌표 맵에 없는 경우 처리
-        if _x1 not in x_map or _x2 not in x_map or _y1 not in y_map or _y2 not in y_map:
-            print(0)
-            continue
-
-        c1_idx = x_map[_x1]
-        c2_idx = x_map[_x2]
-        r1_idx = y_map[_y1]
-        r2_idx = y_map[_y2]
-
-        # 누적 합 배열을 사용하여 사각형 영역 내의 점 개수 계산
-        ans = prefix_sum[r2_idx + 1][c2_idx + 1] \
-            - prefix_sum[r1_idx][c2_idx + 1] \
-            - prefix_sum[r2_idx + 1][c1_idx] \
-            + prefix_sum[r1_idx][c1_idx]
-            
+    for ans in answers:
         print(ans)
 
 solve()

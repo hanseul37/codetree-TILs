@@ -19,7 +19,7 @@ for i in range(n):
         l_cnt += 1
     if prefix[n - 1 - i] == t3:
         r_cnt += 1
-    left[i], right[i] = l_cnt, r_cnt
+    left[i], right[n - 1 - i] = l_cnt, r_cnt
 
 cnt = 0
 for i in range(n):

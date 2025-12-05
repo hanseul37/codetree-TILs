@@ -1,18 +1,13 @@
 n = int(input())
+arr = [list(map(int, input().split())) for _ in range(n)]
 events = []
-
-for _ in range(n):
-    l, r = map(int, input().split())
-    events.append((l, 1))   # 시작
-    events.append((r, -1))  # 끝
-
+for s, e in arr:
+    events.append([s, 1])
+    events.append([e, -1])
 events.sort()
 
-cur = 0
-answer = 0
-
+cnt, max_interval = 0, 0
 for _, v in events:
-    cur += v
-    answer = max(answer, cur)
-
-print(answer)
+    cnt += v
+    max_interval = max(max_interval, cnt)
+print(max_interval)

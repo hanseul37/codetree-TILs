@@ -1,19 +1,27 @@
 n = int(input())
 arr = []
 for i in range(n):
-    start, end = map(int, input().split())
-    arr.append([start, i + 1, 1])
-    arr.append([end, i + 1, -1])
+    s, e = map(int, input().split())
+    arr.append((s, i, 1))
+    arr.append((e, i, -1))
+
 arr.sort()
 
-computer, ans = [0] * n, [0] * n
+computer = [0]*n
+ans = [0]*n
+next_free = 0
+
 for time, person, flag in arr:
-    if flag == 1:
-        for i in range(n):
-            if computer[i] == 0:
-                computer[i] = person
-                ans[person - 1] = i + 1
-                break
-    else:
-        computer[ans[person - 1] - 1] = 0
+    if flag == 1:  # 입장
+        # next_free부터 가능한 곳을 찾기
+        while computer[next_free] != 0:
+            next_free += 1
+        computer[next_free] = person
+        ans[person] = next_free + 1
+    else:  # 퇴장
+        idx = ans[person] - 1
+        computer[idx] = 0
+        if idx < next_free:
+            next_free = idx
+
 print(*ans)

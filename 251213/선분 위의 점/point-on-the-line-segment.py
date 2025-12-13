@@ -1,6 +1,7 @@
 n, m = map(int, input().split())
 points = list(map(int, input().split()))
 lines = [list(map(int, input().split())) for _ in range(m)]
+points.sort()
 
 def lower(num):
     left, right = 0, n - 1

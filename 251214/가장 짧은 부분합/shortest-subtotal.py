@@ -5,6 +5,10 @@ for i in range(n):
     while j < n and total < s:
         total += arr[j]
         j += 1
-    min_cnt = min(j - i + 1, min_cnt)
+    if total >= s:
+        min_cnt = min(j - i, min_cnt)
     total -= arr[i]
-print(min_cnt)
+if min_cnt == n:
+    print(-1)
+else:
+    print(min_cnt)

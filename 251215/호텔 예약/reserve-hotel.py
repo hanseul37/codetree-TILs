@@ -12,6 +12,7 @@ for d, v in arr:
         max_cnt = max(cnt, max_cnt)
     cnt += v
     day = d
+max_cnt = max(cnt, max_cnt)
 print(max_cnt)
 
 

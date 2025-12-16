@@ -10,7 +10,7 @@ def check(num):
     else:
         return False
 
-left, right = 1, 100000 * n
+left, right = 1, 10 ** 9 * n
 while left <= right:
     mid = (left + right) // 2
     if check(mid):

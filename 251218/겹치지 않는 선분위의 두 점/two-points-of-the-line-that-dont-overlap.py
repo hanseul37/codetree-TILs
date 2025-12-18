@@ -1,7 +1,10 @@
 n, m = map(int, input().split())
 arr = [list(map(int, input().split())) for _ in range(m)]
+arr.sort()
 
 def check(num):
+    if not arr:
+        return False
     idx, cnt, point = 0, 1, arr[0][0]
     while idx < m:
         if point + num <= arr[idx][1]:
@@ -13,7 +16,7 @@ def check(num):
             return True
     return False
 
-left, right = 1, 10 ** 18 // n
+left, right = 1, 10 ** 18
 while left <= right:
     mid = (left + right) // 2
     if check(mid):

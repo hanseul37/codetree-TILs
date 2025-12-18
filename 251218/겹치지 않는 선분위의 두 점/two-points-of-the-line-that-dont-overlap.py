@@ -6,7 +6,7 @@ def check(num):
     while idx < m:
         if point + num <= arr[idx][1]:
             cnt += 1
-            point += num
+            point = max(point + num, arr[idx][0])
         else:
             idx += 1
         if cnt >= n:

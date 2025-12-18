@@ -3,8 +3,6 @@ arr = [list(map(int, input().split())) for _ in range(m)]
 arr.sort()
 
 def check(num):
-    if not arr:
-        return False
     idx, cnt, point = 0, 1, arr[0][0]
     while idx < m:
         if point + num <= arr[idx][1]:

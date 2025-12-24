@@ -29,8 +29,8 @@ for i in range(1, len(x_idx) + 1):
         prefix[i][j] = prefix[i - 1][j] + prefix[i][j - 1] - prefix[i - 1][j - 1] + arr[i][j]
 
 min_m = n
-for i in range(1, len(x_idx)):
-    for j in range(1, len(y_idx)):
+for i in range(1, len(x_idx) + 1):
+    for j in range(1, len(y_idx) + 1):
         a = prefix[i][j] - prefix[0][j] - prefix[i][0] + prefix[0][0]
         b = prefix[i][len(y_idx)] - prefix[0][len(y_idx)] - prefix[i][j] + prefix[0][j]
         c = prefix[len(x_idx)][j] - prefix[i][j] - prefix[len(x_idx)][0] + prefix[i][0]

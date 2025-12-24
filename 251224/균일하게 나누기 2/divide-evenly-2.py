@@ -26,7 +26,7 @@ for x, y in x_sort:
 prefix = [[0] * (len(y_idx) + 1) for _ in range(len(x_idx) + 1)]
 for i in range(1, len(x_idx) + 1):
     for j in range(1, len(y_idx) + 1):
-        prefix[i][j] = prefix[i - 1][j] + prefix[i][j - 1] - prefix[i - 1][j - 1] + arr[i - 1][j - 1]
+        prefix[i][j] = prefix[i - 1][j] + prefix[i][j - 1] - prefix[i - 1][j - 1] + arr[i][j]
 
 min_m = n
 for i in range(1, len(x_idx)):

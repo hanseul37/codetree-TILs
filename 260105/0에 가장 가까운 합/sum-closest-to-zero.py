@@ -1,16 +1,15 @@
 n = int(input())
 arr = list(map(int, input().split()))
-min_diff = 2 * 10 ** 9
 arr.sort()
-left, right = 0, n - 1
-sum_nums = arr[left] + arr[right]
+left, right, min_diff = 0, n - 1, 2 * 10 ** 9
 while left < right:
-    if arr[left] + arr[right] >= sum_nums:
-        min_diff = min(sum_nums, min_diff)
+    cur = arr[left] + arr[right]
+    if abs(cur) < min_diff:
+        min_diff = abs(cur)
+    if cur > 0:
         right -= 1
     else:
-        min_diff = min(sum_nums, min_diff)
         left += 1
-print(sum_nums)
+print(min_diff)
 
 

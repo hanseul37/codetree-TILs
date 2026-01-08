@@ -8,12 +8,11 @@ for left in range(n):
         right += 1
     cnt[left] = right - left
 
-right_max = [0] * n
-right_max[-1] = cnt[-1]
-for i in range(n - 2, -1, -1):
+right_max = [0] * (n + 1)
+for i in range(n - 1, -1, -1):
     right_max[i] = max(right_max[i + 1], cnt[i])
 
 max_cnt = 0
 for i in range(n):
-    max_cnt = max(cnt[i] + right_max[i + cnt[i] - 1], max_cnt)
+    max_cnt = max(cnt[i] + right_max[i + cnt[i]], max_cnt)
 print(max_cnt)

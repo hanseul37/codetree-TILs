@@ -13,7 +13,7 @@ for left in range(1, n + 1):
     remain[arr[left - 1]] += 1
     if remain[arr[left - 1]] == 1:
         remain_zero -= 1
-    while right <= n and 0 in cnt:
+    while right <= n and cnt_zero:
         cnt[arr[right]] += 1
         if cnt[arr[right]] == 1:
             cnt_zero -= 1

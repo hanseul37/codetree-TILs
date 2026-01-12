@@ -1,7 +1,7 @@
 n, m = map(int, input().split())
 arr = [0] + list(map(int, input().split()))
 cnt, remain = [0] * (m + 1), [0] * (m + 1)
-cnt_zero, remain_zero = m, 0
+cnt_zero, remain_zero = m, 1
 for i in range(1, n + 1):
     remain[arr[i]] += 1
 

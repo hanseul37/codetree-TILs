@@ -21,6 +21,10 @@ for i in range(m - 1, -1, -1):
 
 cnt = 0
 for i in range(m):
+    if i > 0 and left[i - 1] == -1:
+        continue
+    if i < m - 1 and right[i + 1] == n:
+        continue
     l = left[i - 1] if i > 0 else -1
     r = right[i + 1] if i < m - 1 else n
     if l < r:

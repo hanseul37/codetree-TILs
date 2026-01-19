@@ -7,19 +7,13 @@ for i in range(n):
     alive[order[i] - 1] = i + 1
 
 def check(time):
-    point = -1
-    for i in range(m):
-        if point == n - 1:
-            return False
-        flag = False
-        for j in range(point + 1, n):
-            if a[j] == b[i] and alive[j] > time:
-                point = j
-                flag = True
-                break
-        if not flag:
-            return False
-    return True
+    idx = 0
+    for i in range(n):
+        if alive[i] > time and a[i] == b[idx]:
+            idx += 1
+            if idx == m:
+                return True
+    return False
 
 left, right = 0, n
 while left <= right:

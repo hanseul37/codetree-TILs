@@ -12,7 +12,7 @@ def check(limit):
         cnt += time
     return True
 
-left, right = 0, 1440 * n
+left, right = max(t), sum(t)
 while left <= right:
     mid = (left + right) // 2
     if check(mid):

@@ -1,3 +1,5 @@
+from functools import cmp_to_key
+
 n = int(input())
 arr, ans = [], 0
 for i in range(n):
@@ -10,10 +12,10 @@ for i in range(n):
             ans += cnt
     arr.append([s.count('('), s.count(')')])
 
-for i in range(n):
-    for j in range(i + 1, n):
-        if arr[i][0] * arr[j][1] < arr[j][0] * arr[i][1]:
-            arr[i], arr[j] = arr[j], arr[i]
+def cmp(x, y):
+    return y[0] * x[1] - x[0] * y[1]
+
+arr.sort(key=cmp_to_key(cmp))
 
 point = 0
 for a, b in arr:   

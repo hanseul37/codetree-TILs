@@ -31,6 +31,6 @@ while point != b:
             route.append(nxt)
             point = nxt
             break
-print(len(route) - 1)
+print(distance[a])
 for elem in route:
     print(elem + 1, end=' ')

@@ -6,6 +6,8 @@ for _ in range(m):
     v1, v2, weight = map(int, input().split())
     graph[v1 - 1].append([v2 - 1, weight])
     graph[v2 - 1].append([v1 - 1, weight])
+for i in range(n):
+    graph[i].sort()
 a, b = map(int, input().split())
 a -= 1
 b -= 1

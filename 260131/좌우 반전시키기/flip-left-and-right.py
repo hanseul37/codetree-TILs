@@ -4,6 +4,8 @@ cnt = 0
 for i in range(n - 1):
     if arr[i] == 0:
         for j in range(3):
+            if i + j >= n:
+                continue
             arr[i + j] = (arr[i + j] + 1) % 2
         cnt += 1
 if arr[-1] == 0:

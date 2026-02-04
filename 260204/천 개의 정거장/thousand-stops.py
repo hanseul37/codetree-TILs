@@ -37,6 +37,6 @@ while q:
 
 ans = min(cost[b].values(), default=[float('inf'), float('inf')])
 if ans[0] == float('inf'):
-    print(-1)
+    print(-1, -1)
 else:
     print(ans[0], ans[1])

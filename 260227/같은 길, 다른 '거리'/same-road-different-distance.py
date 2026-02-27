@@ -1,59 +1,69 @@
 import heapq 
 
 n, m = map(int, input().split())
-a, b, warning = [[] for _ in range(n)], [[] for _ in range(n)], [[] for _ in range(n)]  
-ra, rb = [[] for _ in range(n)], [[] for _ in range(n)]  # 🔥 역그래프 추가
+graph = [[] for _ in range(n)]
+rev_graph = [[] for _ in range(n)]
 
 for _ in range(m):
     v1, v2, aw, bw = map(int, input().split())
     u = v1 - 1
     v = v2 - 1
+    graph[u].append((v, aw, bw))
+    rev_graph[v].append((u, aw, bw))
 
-    a[u].append([v, aw])
-    b[u].append([v, bw])
-    warning[u].append([v, 2])
+def dijkstra(graph, start, use_a=True):
+    dist = [float('inf')] * n
+    dist[start] = 0
+    pq = [(0, start)]
 
-    ra[v].append([u, aw])  # 🔥 역방향 저장
-    rb[v].append([u, bw])
-
-def dijkstra(graph, start):
-    distance = [float('inf')] * n
-    distance[start] = 0
-    q = [(0, start)]
-    while q:
-        dist, node = heapq.heappop(q)
-        if dist > distance[node]:
+    while pq:
+        d, u = heapq.heappop(pq)
+        if d > dist[u]:
             continue
-        for next_node, weight in graph[node]:
-            cost = dist + weight
-            if cost < distance[next_node]:
-                distance[next_node] = cost
-                heapq.heappush(q, (cost, next_node))
-    return distance
+        for v, aw, bw in graph[u]:
+            w = aw if use_a else bw
+            nd = d + w
+            if nd < dist[v]:
+                dist[v] = nd
+                heapq.heappush(pq, (nd, v))
+    return dist
 
-# 1️⃣ 시작점 기준
-dist_a = dijkstra(a, 0)
-dist_b = dijkstra(b, 0)
+# A 기준
+distA = dijkstra(graph, 0, True)
+distA_rev = dijkstra(rev_graph, n-1, True)
 
-# 2️⃣ 도착점(N-1) 기준 역그래프
-dist_a_rev = dijkstra(ra, n-1)
-dist_b_rev = dijkstra(rb, n-1)
+# B 기준
+distB = dijkstra(graph, 0, False)
+distB_rev = dijkstra(rev_graph, n-1, False)
 
-# 3️⃣ 간선이 1→N 최단경로 위에 있는지 검사
-for i in range(n):
-    for j in range(len(warning[i])):
-        v = a[i][j][0]
-        aw = a[i][j][1]
-        bw = b[i][j][1]
+# 경고 그래프 생성
+warning_graph = [[] for _ in range(n)]
 
-        # A 기준
-        if not (dist_a[i] + aw + dist_a_rev[v] == dist_a[n-1]):
-            warning[i][j][1] -= 1
+for u in range(n):
+    for v, aw, bw in graph[u]:
+        cost = 0
 
-        # B 기준
-        if not (dist_b[i] + bw + dist_b_rev[v] == dist_b[n-1]):
-            warning[i][j][1] -= 1
+        if distA[u] + aw + distA_rev[v] != distA[n-1]:
+            cost += 1
 
-# 4️⃣ 경고 그래프 다익스트라
-dist_warning = dijkstra(warning, 0)
-print(dist_warning[n-1])
+        if distB[u] + bw + distB_rev[v] != distB[n-1]:
+            cost += 1
+
+        warning_graph[u].append((v, cost))
+
+# 최종 다익스트라
+dist_final = [float('inf')] * n
+dist_final[0] = 0
+pq = [(0, 0)]
+
+while pq:
+    d, u = heapq.heappop(pq)
+    if d > dist_final[u]:
+        continue
+    for v, cost in warning_graph[u]:
+        nd = d + cost
+        if nd < dist_final[v]:
+            dist_final[v] = nd
+            heapq.heappush(pq, (nd, v))
+
+print(dist_final[n-1])

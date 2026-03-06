@@ -1,7 +1,9 @@
 n = input()
 dp = [[0, 0] for _ in range(3)]
 dp[0][0] = 1
+num = 0
 for c in n:
+    num = (num * 10 + int(c)) % (10**9 + 7)
     new_dp = [[0, 0] for _ in range(3)]
     for i in range(3):
         for j in range(2):
@@ -12,8 +14,8 @@ for c in n:
                     continue
                 if j == 0 and k > int(c):
                     continue
-                new_dp[(i + k) % 3][j or k < int(c)] += dp[i][j]
+                new_dp[(i + k) % 3][j or k < int(c)] = (new_dp[(i + k) % 3][j or k < int(c)] + dp[i][j]) % (10**9 + 7)
     dp = new_dp
-print((int(n) - sum(dp[1]) - sum(dp[2])) % (10**9 + 7))
+print((num - sum(dp[1]) - sum(dp[2])) % (10**9 + 7))
 
                 

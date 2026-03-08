@@ -9,7 +9,7 @@ visited = [False] * n
 visited[0] = True
 max_cost, idx = 0, -1
 def dfs(node, cost):
-    global max_cost
+    global max_cost, idx
     for next_node, weight in graph[node]:
         if not visited[next_node]:
             new_cost = cost + weight
@@ -22,5 +22,6 @@ def dfs(node, cost):
 dfs(0, 0)
 visited = [False] * n
 visited[idx] = True
+max_cost = 0
 dfs(idx, 0)
 print(max_cost)

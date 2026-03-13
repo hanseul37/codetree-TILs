@@ -11,12 +11,14 @@ def explosion(bombs):
             else:
                 if cnt < m:
                     for _ in range(cnt):
-                        not_explosion.append(point)
+                        if point != 0:
+                            not_explosion.append(point)
                 point = bombs[j][i]
                 cnt = 1
         if cnt < m:
             for _ in range(cnt):
-                not_explosion.append(point)
+                if point != 0:
+                    not_explosion.append(point)
         for j in range(len(not_explosion)):
             new_bombs[n - len(not_explosion) + j][i] = not_explosion[j]
     return new_bombs
@@ -33,9 +35,12 @@ def turn(bombs):
     return new_bombs
         
 for _ in range(k):
-    bombs = explosion(bombs)
+    while True:
+        new_bombs = explosion(bombs)
+        if bombs == new_bombs:
+            break
+        bombs = new_bombs
     bombs = turn(bombs)
-
 while True:
     new_bombs = explosion(bombs)
     if bombs == new_bombs:

@@ -35,7 +35,12 @@ def turn(bombs):
 for _ in range(k):
     bombs = explosion(bombs)
     bombs = turn(bombs)
-bombs = explosion(bombs)
+
+while True:
+    new_bombs = explosion(bombs)
+    if bombs == new_bombs:
+        break
+    bombs = new_bombs
 
 cnt = 0
 for i in range(n):

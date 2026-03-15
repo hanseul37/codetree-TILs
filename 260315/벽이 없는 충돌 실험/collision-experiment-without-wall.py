@@ -1,7 +1,11 @@
 t = int(input())
+
 for _ in range(t):
     n = int(input())
+
     x, y, w, d = [], [], [], []
+    alive = [True] * n
+
     for i in range(n):
         xi, yi, wi, di = input().split()
         x.append((int(xi) + 1000) * 2)
@@ -9,46 +13,40 @@ for _ in range(t):
         w.append(int(wi))
         d.append(di)
 
-    cnt, last_collision = 0, -1
-    while len(d) > 1 and cnt <= 4000:
-        cnt += 1
+    last_collision = -1
+
+    for time in range(1, 4001):
+
         pos = {}
-        for i in range(len(d)):
-            original_x, original_y = x[i], y[i]
+
+        for i in range(n):
+            if not alive[i]:
+                continue
+
             if d[i] == 'U':
                 y[i] -= 1
             elif d[i] == 'D':
                 y[i] += 1
-            elif d[i] == 'R':
-                x[i] += 1
             elif d[i] == 'L':
-                x[i] -= 1      
-            if original_x != x[i] or original_y != y[i]:
-                moved = True
+                x[i] -= 1
+            else:
+                x[i] += 1
 
             key = (x[i], y[i])
-            if key not in pos:
-                pos[key] = []
-            pos[key].append(i)
+            pos.setdefault(key, []).append(i)
 
-        if not moved:
-            break
+        collision = False
 
-        beads, flag = [], False
-        for b in pos.values():
-            if len(b) == 1:
-                beads.append(b[0])
-            else:
-                b.sort(key=lambda idx: [w[idx], idx], reverse=True)
-                beads.append(b[0])
-                flag = True
-        if flag:
-            last_collision = cnt
-        beads.sort()
+        for arr in pos.values():
+            if len(arr) > 1:
+                collision = True
+                arr.sort(key=lambda i: (w[i], i), reverse=True)
+                winner = arr[0]
 
-        x = [x[i] for i in beads]
-        y = [y[i] for i in beads]
-        w = [w[i] for i in beads]
-        d = [d[i] for i in beads]
+                for i in arr[1:]:
+                    alive[i] = False
+
+        if collision:
+            last_collision = time
 
     print(last_collision)

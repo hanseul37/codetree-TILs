@@ -15,13 +15,13 @@ for _ in range(t):
         pos = {}
         for i in range(len(d)):
             original_x, original_y = x[i], y[i]
-            if d[i] == 'U' and y[i] != 0:
+            if d[i] == 'U':
                 y[i] -= 1
-            elif d[i] == 'D' and y[i] != 4000:
+            elif d[i] == 'D':
                 y[i] += 1
-            elif d[i] == 'R' and x[i] != 4000:
+            elif d[i] == 'R':
                 x[i] += 1
-            elif d[i] == 'L' and x[i] != 0:
+            elif d[i] == 'L':
                 x[i] -= 1      
             if original_x != x[i] or original_y != y[i]:
                 moved = True

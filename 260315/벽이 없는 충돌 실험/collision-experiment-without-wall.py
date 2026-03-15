@@ -1,50 +1,62 @@
 import sys
-
-# 입력 속도 최적화
 input = sys.stdin.readline
 
-t = int(input())
-for _ in range(t):
+T = int(input())
+
+for _ in range(T):
     n = int(input())
-    beads = [] 
-    
+
+    atoms = []
     for i in range(n):
-        xi, yi, wi, di = input().split()
-        x = (int(xi) + 1000) * 2
-        # 🚨 여기에 빠졌던 마이너스(-) 부호를 복구했습니다!
-        y = (-int(yi) + 1000) * 2 
-        w = int(wi)
-        beads.append([x, y, w, di, i]) 
+        x, y, w, d = input().split()
+        x = (int(x) + 1000) * 2
+        y = (int(y) + 1000) * 2
+        w = int(w)
 
-    last_collision = -1
-    
-    for cnt in range(1, 4001):
-        if len(beads) <= 1:
-            break
-            
+        if d == 'U':
+            dx, dy = 0, 1
+        elif d == 'D':
+            dx, dy = 0, -1
+        elif d == 'L':
+            dx, dy = -1, 0
+        else:
+            dx, dy = 1, 0
+
+        atoms.append([x, y, w, dx, dy, True])
+
+    last = -1
+
+    for t in range(1, 4001):
+
         pos = {}
-        is_collided = False
-        
-        for b in beads:
-            if b[3] == 'U': b[1] -= 1
-            elif b[3] == 'D': b[1] += 1
-            elif b[3] == 'R': b[0] += 1
-            elif b[3] == 'L': b[0] -= 1
-            
-            key = (b[0], b[1])
-            
-            if key not in pos:
-                pos[key] = b
-            else:
-                is_collided = True
-                existing = pos[key]
-                # 무게가 크거나, 무게가 같을 때 고유 번호가 큰 구슬이 생존
-                if b[2] > existing[2] or (b[2] == existing[2] and b[4] > existing[4]):
-                    pos[key] = b
-                    
-        if is_collided:
-            last_collision = cnt
-            
-        beads = list(pos.values())
 
-    print(last_collision)
+        for i in range(n):
+            if not atoms[i][5]:
+                continue
+
+            atoms[i][0] += atoms[i][3]
+            atoms[i][1] += atoms[i][4]
+
+            x, y = atoms[i][0], atoms[i][1]
+
+            if not (0 <= x <= 4000 and 0 <= y <= 4000):
+                atoms[i][5] = False
+                continue
+
+            pos.setdefault((x, y), []).append(i)
+
+        collision = False
+
+        for v in pos.values():
+            if len(v) > 1:
+                collision = True
+                v.sort(key=lambda i: (atoms[i][2], i), reverse=True)
+
+                winner = v[0]
+                for i in v[1:]:
+                    atoms[i][5] = False
+
+        if collision:
+            last = t
+
+    print(last)

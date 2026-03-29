@@ -2,7 +2,7 @@ import sys
 input = sys.stdin.readline
 
 n, q = map(int, input().split())
-visited = [False] * (n + 1)
+visited, answers = [False] * (n + 1), []
 for _ in range(q):
     dest = int(input())
     cur, ans = dest, 0
@@ -12,6 +12,7 @@ for _ in range(q):
         cur //= 2
     if ans == 0:
         visited[dest] = True
-        print(0)
+        answers.append("0") 
     else:
-        print(ans)
+        answers.append(str(ans)) 
+print('\n'.join(answers))

@@ -9,7 +9,7 @@ for _ in range(q):
     while cur > 0:
         if visited[cur]:
             ans = cur
-        cur //= 2
+        cur >>= 1
     if ans == 0:
         visited[dest] = True
         answers.append("0") 

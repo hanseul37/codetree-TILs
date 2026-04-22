@@ -8,33 +8,14 @@ for _ in range(n - 1):
     tree[v1].append(v2)
     tree[v2].append(v1)
 
-dist, cnt = [-1] * (n + 1), 0
-
-def dist_dfs(node, parent):
-    for next_node in tree[node]:
-        if not next_node == parent:
-            dist[next_node] = dist[node] + 1
-            dist_dfs(next_node, node)
-
 def dfs(node, parent):
-    global cnt
-    if dist[node] > d:
-        flag = True
-    else:
-        flag = False
+    cnt, depth = 0, 0
     for next_node in tree[node]:
-        if not next_node == parent:
-            if dfs(next_node, node):
-                flag = True
-    if node != s and flag:
-        cnt += 2
-    return flag
+        if next_node != parent:
+            child_depth, child_cnt = dfs(next_node, node)
+            if child_depth >= d:
+                cnt += child_cnt + 2
+            depth = max(child_depth + 1, depth)
+    return depth, cnt
 
-dist[s] = 0
-dist_dfs(s, 0)
-dfs(s, 0)
-if cnt > 0:
-    print(cnt - 4)
-else:
-    print(0)
-
+print(dfs(s, 0)[1])

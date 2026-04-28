@@ -1,3 +1,6 @@
+import sys
+sys.setrecursionlimit(10**6)
+
 n = int(input())
 tree, dp = [[] for _ in range(n)], [[0] * 3 for _ in range(n)]
 for _ in range(n - 1):

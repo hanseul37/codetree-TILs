@@ -20,13 +20,11 @@ def dfs(node):
 dfs(root)
 v1, v2 = map(int, input().split())
 v1, v2 = v1 - 1, v2 - 1
-while depth[v1] != depth[v2]:
+while v1 != v2:
     if depth[v1] > depth[v2]:
         v1 = parent[v1]
     else:
         v2 = parent[v2]
-while v1 != v2:
-    v1 = parent[v1]
-    v2 = parent[v2]
+
 print(v1 + 1)
 

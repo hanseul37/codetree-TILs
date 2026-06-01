@@ -9,9 +9,6 @@ def find(x):
     arr[x] = find(arr[x])
     return arr[x]
 
-def union(x, y):
-    arr[find(x)] = find(y)
-
 ans = 0
 for i in k:
     empty = find(i)

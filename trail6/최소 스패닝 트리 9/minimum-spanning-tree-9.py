@@ -17,8 +17,7 @@ while pq:
     visited[min_idx] = True
     ans += min_dist
     for target_idx, target_dist in graph[min_idx]:
-        new_dist = target_dist
-        if dist[target_idx] > new_dist:
-            dist[target_idx] = new_dist
-            heapq.heappush(pq, [new_dist, target_idx])
+        if dist[target_idx] > target_dist:
+            dist[target_idx] = target_dist
+            heapq.heappush(pq, [target_dist, target_idx])
 print(ans)
